@@ -1,0 +1,24 @@
+html,
+ul,
+ol,
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.App{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.board{
+    width: 560px;
+    height: 560px;
+
+    display: flex;
+    flex-wrap: wrap;
+}

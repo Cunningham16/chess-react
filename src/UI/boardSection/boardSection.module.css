@@ -1,0 +1,19 @@
+.dark, .light{
+    width: 70px;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.dark{
+    background-color: #ca8745;
+}
+
+.light{
+    background-color: #f7c899;
+}
