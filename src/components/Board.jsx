@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BoardContext } from '../context';
 import { useContext } from 'react';
 import '../styles/board.css';
 import BoardSection from '../UI/boardSection/BoardSection';
 
-function Board(props) {
+function Board() {
     const {boardArray} = useContext(BoardContext);
 
     return ( 

@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { BoardContext } from '../../context';
+import Dot from '../dot/Dot';
+import Pawn from '../figures/Pawn';
 import classes from './boardSection.module.css';
 
-function BoardSection(props) {
+function BoardSection(props) { 
+    const {boardArray, appearHints} = useContext(BoardContext);
+
     function colorSection(){
         if(props.objectBoard.color === "dark"){
             return classes.dark;
@@ -10,9 +15,37 @@ function BoardSection(props) {
         }
     }
 
+    function declare(){
+        if(props.objectBoard.whatPlaced !== undefined){
+            let idFigure = props.objectBoard.whatPlaced.id;
+            switch (idFigure) {
+                case 'pawn':
+                    return(
+                        <Pawn position={props.objectBoard.id} color={props.objectBoard.whatPlaced.color}/>
+                    );            
+                default:
+                    break;
+            }
+        }
+    }
+
+    function declareHints(){
+        if(props.objectBoard.setDot !== undefined){
+            return (
+                <Dot objectDot = {props.objectBoard.setDot}/>
+            );
+        }
+    }
+
+    useEffect(() => {
+        declareHints();
+        declare();
+    }, [appearHints])
+
     return ( 
-        <div className = {colorSection()}>
-            {props.children}
+        <div className = {colorSection()} id = {props.objectBoard.id}>
+            {declareHints()}
+            {declare()}
         </div>
     );
 }

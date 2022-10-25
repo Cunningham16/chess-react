@@ -1,0 +1,15 @@
+.board_figure{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+} 
+
+.board_figure img{
+    position: relative;
+    right: 1px;
+}

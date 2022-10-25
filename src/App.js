@@ -2,6 +2,26 @@ import { useState } from "react";
 import Board from "./components/Board";
 import { BoardContext } from './context';
 
+const arrayFigures = [
+  {position: 9, color: 'dark', id: 'pawn'},
+  {position: 10, color: 'dark', id: 'pawn'},
+  {position: 11, color: 'dark', id: 'pawn'},
+  {position: 12, color: 'dark', id: 'pawn'},
+  {position: 13, color: 'dark', id: 'pawn'},
+  {position: 14, color: 'dark', id: 'pawn'},
+  {position: 15, color: 'dark', id: 'pawn'},
+  {position: 16, color: 'dark', id: 'pawn'},
+
+  {position: 49, color: 'light', id: 'pawn'},
+  {position: 50, color: 'light', id: 'pawn'},
+  {position: 51, color: 'light', id: 'pawn'},
+  {position: 52, color: 'light', id: 'pawn'},
+  {position: 53, color: 'light', id: 'pawn'},
+  {position: 54, color: 'light', id: 'pawn'},
+  {position: 55, color: 'light', id: 'pawn'},
+  {position: 56, color: 'light', id: 'pawn'},
+]
+
 function createBoard(){
   let array = [];
 
@@ -27,11 +47,20 @@ function createBoard(){
     }
   }
 
+  function setFigure(i){
+      for(let pos of arrayFigures){
+          if(i === pos.position){
+              return pos;
+          }
+      }
+  }
+
   for(let i = 1; i < 65; i++){
     array[i-1] = {
-      whatPlaced: undefined,
+      whatPlaced: setFigure(i),
       id: i,
       color: setColor(i-1),
+      setDot: undefined,
     }
   }
   return array;
@@ -39,11 +68,14 @@ function createBoard(){
 
 function App() {
   const [boardArray, setBoardArray] = useState(createBoard())
+  const [appearHints, setHints] = useState();
 
   return (
     <BoardContext.Provider value={{
       boardArray,
       setBoardArray,
+      appearHints, 
+      setHints,
     }}>
       <div className="App">
           <Board />
