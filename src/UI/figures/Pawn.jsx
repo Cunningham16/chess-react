@@ -13,42 +13,54 @@ function Pawn(props) {
         }
     }
 
-    let array1 = [1, 9, 17, 25, 33, 41, 49, 57];
-    let array2 = [8, 16, 24, 32, 40, 48, 56, 64];
-
     function hintsToMove(position){
         for(let elem of boardArray){
             elem.setDot = undefined;
         }
-        setHints(!appearHints)
+
         for(let elem of boardArray){
             let pawnMoveBlack = elem.whatPlaced === undefined && props.color === 'dark';
             let pawnMoveWhite = elem.whatPlaced === undefined && props.color === 'light';
-            let firstMoveBlack = (elem.id === position+8 || elem.id === position+16) && pawnMoveBlack;
-            let firstMoveWhite = (elem.id === position-8 || elem.id === position-16) && pawnMoveWhite;
-            let pawnAttackBlack = elem.whatPlaced !== undefined && props.color === 'dark';
-            let pawnAttackWhite = elem.whatPlaced !== undefined && props.color === 'light';
-            if(firstMoveBlack && position <= 16){
-                elem.setDot = {position: elem.id, id: 'dot', figurePosition: position, type: 'dot'};
-            }else if(firstMoveWhite && position >= 48){
-                elem.setDot = {position: elem.id, id: 'dot', figurePosition: position, type: 'dot'};
-            }else if(pawnMoveWhite && position < 48 && elem.id === position-8){
-                elem.setDot = {position: elem.id, id: 'dot', figurePosition: position, type: 'dot'};
-            }else if(pawnMoveBlack && position > 16 && elem.id === position+8){
-                elem.setDot = {position: elem.id, id: 'dot', figurePosition: position, type: 'dot'};
-            }else if(pawnAttackWhite && (elem.id === position-7 || elem.id === position-9) && (!array1.includes(position) && !array2.includes(position))){
-                elem.setDot = {position: elem.id, id: 'dot', figurePosition: position, type: 'circle'};
-            }else if(pawnAttackBlack && (elem.id === position+7 || elem.id === position+9) && (!array1.includes(position) && !array2.includes(position))){
-                elem.setDot = {position: elem.id, id: 'dot', figurePosition: position, type: 'circle'};
-            }else if(pawnAttackWhite && elem.id === position-7 && array1.includes(position)){
-                elem.setDot = {position: elem.id, id: 'dot', figurePosition: position, type: 'circle'};
-            }else if(pawnAttackBlack && elem.id === position+7 && array1.includes(position)){
-                elem.setDot = {position: elem.id, id: 'dot', figurePosition: position, type: 'circle'};
-            }else if(pawnAttackWhite && elem.id === position-9 && array2.includes(position)){
-                elem.setDot = {position: elem.id, id: 'dot', figurePosition: position, type: 'circle'};
-            }else if(pawnAttackBlack && elem.id === position+9 && array2.includes(position)){
-                elem.setDot = {position: elem.id, id: 'dot', figurePosition: position, type: 'circle'};
-            }
+
+            let pawnAttackBlack = elem.whatPlaced !== undefined 
+                                    && props.color === 'dark' 
+                                    && elem.whatPlaced.color !== 'dark'
+                                    && (elem.position.x === position.x-1 || elem.position.x === position.x+1)
+                                    && elem.position.y === position.y+1;
+
+            
+            let pawnAttackWhite = elem.whatPlaced !== undefined 
+                                    && props.color === 'light' 
+                                    && elem.whatPlaced.color !== 'light'
+                                    && (elem.position.x === position.x-1 || elem.position.x === position.x+1)
+                                    && elem.position.y === position.y-1;
+
+
+            let pawnFirstMoveBlack = pawnMoveBlack 
+                                        && elem.position.x === position.x 
+                                        && (elem.position.y === position.y+1 || elem.position.y === position.y+2) 
+                                        && position.y === 1;
+
+            let pawnFirstMoveWhite = pawnMoveWhite 
+                                        && elem.position.x === position.x 
+                                        && (elem.position.y === position.y-1 || elem.position.y === position.y-2) 
+                                        && position.y === 6;
+
+            let pawnDefaultMoveBlack = pawnMoveBlack
+                                        && elem.position.x === position.x
+                                        && elem.position.y === position.y+1
+                                        && position.y !== 1;
+
+            let pawnDefaultMoveWhite = pawnMoveWhite
+                                        && elem.position.x === position.x
+                                        && elem.position.y === position.y-1
+                                        && position.y !== 6;
+
+            if(pawnFirstMoveBlack || pawnFirstMoveWhite || pawnDefaultMoveBlack || pawnDefaultMoveWhite){
+                elem.setDot = {position: elem.position, id: 'dot', figurePosition: position, type: 'dot'};
+            }else if(pawnAttackWhite || pawnAttackBlack){
+                elem.setDot = {position: elem.position, id: 'dot', figurePosition: position, type: 'circle'};
+            }            
         }
         setHints(!appearHints)
     }

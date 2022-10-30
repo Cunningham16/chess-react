@@ -11,6 +11,10 @@
     cursor: pointer;
 }
 
+.hidden{
+    display: none;
+}
+
 .dot::after{
     content: '';
     display: block;

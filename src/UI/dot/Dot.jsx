@@ -7,12 +7,11 @@ function Dot(props) {
 
     function moveFigure(objectDot){
         for(let elem of boardArray){
-            if(elem.whatPlaced !== undefined && elem.whatPlaced.position === objectDot.figurePosition){
+            if(elem.whatPlaced !== undefined && elem.position === objectDot.figurePosition){
                 let figure = elem.whatPlaced;
                 elem.whatPlaced = undefined;
                 for(let newPos of boardArray){
-                    if(newPos.id === objectDot.position){
-                        figure.position = newPos.id;
+                    if(newPos.position === objectDot.position){
                         newPos.whatPlaced = figure;
                     }
                 }
@@ -31,6 +30,8 @@ function Dot(props) {
                 return classes.dot;
             case 'circle':
                 return classes.circle;
+            case 'toClean':
+                return classes.hidden;
         
             default:
                 break;

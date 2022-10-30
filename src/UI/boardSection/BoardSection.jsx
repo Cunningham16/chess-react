@@ -1,11 +1,12 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BoardContext } from '../../context';
 import Dot from '../dot/Dot';
+import Bishop from '../figures/Bishop';
 import Pawn from '../figures/Pawn';
 import classes from './boardSection.module.css';
 
 function BoardSection(props) { 
-    const {boardArray, appearHints} = useContext(BoardContext);
+    const {appearHints} = useContext(BoardContext);
 
     function colorSection(){
         if(props.objectBoard.color === "dark"){
@@ -21,7 +22,11 @@ function BoardSection(props) {
             switch (idFigure) {
                 case 'pawn':
                     return(
-                        <Pawn position={props.objectBoard.id} color={props.objectBoard.whatPlaced.color}/>
+                        <Pawn position={props.objectBoard.position} color={props.objectBoard.whatPlaced.color}/>
+                    );
+                case 'bishop':
+                    return(
+                        <Bishop position={props.objectBoard.position} color={props.objectBoard.whatPlaced.color}/>
                     );            
                 default:
                     break;
@@ -43,7 +48,7 @@ function BoardSection(props) {
     }, [appearHints])
 
     return ( 
-        <div className = {colorSection()} id = {props.objectBoard.id}>
+        <div className = {colorSection()}>
             {declareHints()}
             {declare()}
         </div>

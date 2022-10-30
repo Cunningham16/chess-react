@@ -20,6 +20,12 @@ const arrayFigures = [
   {position: 54, color: 'light', id: 'pawn'},
   {position: 55, color: 'light', id: 'pawn'},
   {position: 56, color: 'light', id: 'pawn'},
+
+  {position: 3, color: 'dark', id: 'bishop'},
+  {position: 6, color: 'dark', id: 'bishop'},
+
+  {position: 59, color: 'light', id: 'bishop'},
+  {position: 62, color: 'light', id: 'bishop'},
 ]
 
 function createBoard(){
@@ -47,18 +53,51 @@ function createBoard(){
     }
   }
 
+  function setPosition(i){
+    let object = {};
+    if(i-8 <= 0){
+      object.x = i-1;
+      object.y = 0;
+    }else if(i-16 <= 0 && i-8 > 0){
+      object.x = i-9;
+      object.y = 1; 
+    }else if(i-24 <= 0 && i-16 > 0){
+      object.x = i-17;
+      object.y = 2; 
+    }else if(i-32 <= 0 && i-24 > 0){
+      object.x = i-25;
+      object.y = 3; 
+    }else if(i-40 <= 0 && i-32 > 0){
+      object.x = i-33;
+      object.y = 4; 
+    }else if(i-48 <= 0 && i-40 > 0){
+      object.x = i-41;
+      object.y = 5; 
+    }else if(i-56 <= 0 && i-48 > 0){
+      object.x = i-49;
+      object.y = 6; 
+    }else if(i-56 > 0){
+      object.x = i-57;
+      object.y = 7; 
+    }
+    return object;
+  }
+
   function setFigure(i){
-      for(let pos of arrayFigures){
-          if(i === pos.position){
-              return pos;
-          }
-      }
+    for(let pos of arrayFigures){
+        if(i === pos.position){
+            return {
+              color: pos.color,
+              id: pos.id,
+            };
+        }
+    }
   }
 
   for(let i = 1; i < 65; i++){
     array[i-1] = {
       whatPlaced: setFigure(i),
-      id: i,
+      position: setPosition(i),
       color: setColor(i-1),
       setDot: undefined,
     }
