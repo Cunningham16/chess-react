@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import { BoardContext } from '../../context';
-import classes from './figures.module.css'
+import classes from './figures.module.css';
 
 function setImageFigure(color){
     if(color === 'dark'){

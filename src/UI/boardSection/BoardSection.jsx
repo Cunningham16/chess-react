@@ -2,7 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { BoardContext } from '../../context';
 import Dot from '../dot/Dot';
 import Bishop from '../figures/Bishop';
+import Knight from '../figures/Knight';
 import Pawn from '../figures/Pawn';
+import Rook from '../figures/Rook';
 import classes from './boardSection.module.css';
 
 function BoardSection(props) { 
@@ -27,6 +29,14 @@ function BoardSection(props) {
                 case 'bishop':
                     return(
                         <Bishop position={props.objectBoard.position} color={props.objectBoard.whatPlaced.color}/>
+                    );
+                case 'knight':
+                    return(
+                        <Knight position={props.objectBoard.position} color={props.objectBoard.whatPlaced.color}/>
+                    );
+                case 'rook':
+                    return(
+                        <Rook position={props.objectBoard.position} color={props.objectBoard.whatPlaced.color}/>
                     );            
                 default:
                     break;

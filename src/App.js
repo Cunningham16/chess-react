@@ -26,6 +26,18 @@ const arrayFigures = [
 
   {position: 59, color: 'light', id: 'bishop'},
   {position: 62, color: 'light', id: 'bishop'},
+
+  {position: 2, color: 'dark', id: 'knight'},
+  {position: 7, color: 'dark', id: 'knight'},
+
+  {position: 58, color: 'light', id: 'knight'},
+  {position: 63, color: 'light', id: 'knight'},
+
+  {position: 1, color: 'dark', id: 'rook'},
+  {position: 8, color: 'dark', id: 'rook'},
+
+  {position: 57, color: 'light', id: 'rook'},
+  {position: 64, color: 'light', id: 'rook'},
 ]
 
 function createBoard(){
