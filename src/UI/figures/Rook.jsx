@@ -68,7 +68,7 @@ function Rook(props) {
                     }
                 }
             }
-        }
+    }
 
     return ( 
         <button className={classes.board_figure}
