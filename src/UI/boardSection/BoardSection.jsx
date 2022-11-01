@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { BoardContext } from '../../context';
 import Dot from '../dot/Dot';
-import Bishop from '../figures/Bishop';
-import King from '../figures/King';
-import Knight from '../figures/Knight';
-import Pawn from '../figures/Pawn';
-import Queen from '../figures/Queen';
-import Rook from '../figures/Rook';
+import Bishop from '../../components/figures/Bishop';
+import King from '../../components/figures/King';
+import Knight from '../../components/figures/Knight';
+import Pawn from '../../components/figures/Pawn';
+import Queen from '../../components/figures/Queen';
+import Rook from '../../components/figures/Rook';
 import classes from './boardSection.module.css';
 
 function colorSection(color){
