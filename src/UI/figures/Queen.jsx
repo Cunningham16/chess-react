@@ -19,41 +19,35 @@ function Queen(props) {
         }
 
         for(let elem of boardArray){
+            const dotObject = {position: elem.position, id: 'dot', figurePosition: position, type: 'dot'};
+            const circleObject = {position: elem.position, id: 'dot', figurePosition: position, type: 'circle'};
+            const clearObject = {type: 'toClean'};
+
             for(let i = 0; i <= 7; i++){
-                if(elem.whatPlaced === undefined 
-                    && (((elem.position.y === position.y-i || elem.position.y === position.y+i) && elem.position.x === position.x)
-                    || ((elem.position.x === position.x-i || elem.position.x === position.x+i) && elem.position.y === position.y))){
-                        elem.setDot = {position: elem.position, id: 'dot', figurePosition: position, type: 'dot'};
+                const moveHoristontalVertical = ((elem.position.y === position.y-i || elem.position.y === position.y+i) && elem.position.x === position.x)
+                || ((elem.position.x === position.x-i || elem.position.x === position.x+i) && elem.position.y === position.y)
+
+                if(elem.whatPlaced === undefined && moveHoristontalVertical){
+                    elem.setDot = dotObject;
                 }
                 
-                if(elem.whatPlaced !== undefined 
-                    && (((elem.position.y === position.y-i || elem.position.y === position.y+i) && elem.position.x === position.x)
-                    || ((elem.position.x === position.x-i || elem.position.x === position.x+i) && elem.position.y === position.y))
-                    && elem.whatPlaced.color !== props.color){
-                        elem.setDot = {position: elem.position, id: 'dot', figurePosition: position, type: 'circle'};
-                }else if(elem.whatPlaced !== undefined 
-                    && (((elem.position.y === position.y-i || elem.position.y === position.y+i) && elem.position.x === position.x)
-                    || ((elem.position.x === position.x-i || elem.position.x === position.x+i) && elem.position.y === position.y))
-                    && elem.whatPlaced.color === props.color){
-                        elem.setDot = {type: 'toClean'};
+                if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color !== props.color){
+                    elem.setDot = circleObject;
+                }else if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color === props.color){
+                    elem.setDot = clearObject;
                 }
 
-                if(elem.whatPlaced === undefined 
-                    && (elem.position.y === position.y-i || elem.position.y === position.y+i) 
-                    && (elem.position.x === position.x-i || elem.position.x === position.x+i)){
-                        elem.setDot = {position: elem.position, id: 'dot', figurePosition: position, type: 'dot'};
+                const moveDiagonal = (elem.position.y === position.y-i || elem.position.y === position.y+i) 
+                                    && (elem.position.x === position.x-i || elem.position.x === position.x+i);
+                
+                if(elem.whatPlaced === undefined && moveDiagonal){
+                        elem.setDot = dotObject;
                 }
                 
-                if(elem.whatPlaced !== undefined 
-                    && (elem.position.y === position.y-i || elem.position.y === position.y+i) 
-                    && (elem.position.x === position.x-i || elem.position.x === position.x+i)
-                    && elem.whatPlaced.color !== props.color){
-                        elem.setDot = {position: elem.position, id: 'dot', figurePosition: position, type: 'circle'};
-                }else if(elem.whatPlaced !== undefined 
-                    && (elem.position.y === position.y-i || elem.position.y === position.y+i) 
-                    && (elem.position.x === position.x-i || elem.position.x === position.x+i)
-                    && elem.whatPlaced.color === props.color){
-                        elem.setDot = {type: 'toClean'};
+                if(elem.whatPlaced !== undefined && moveDiagonal && elem.whatPlaced.color !== props.color){
+                        elem.setDot = circleObject;
+                }else if(elem.whatPlaced !== undefined && moveDiagonal && elem.whatPlaced.color === props.color){
+                        elem.setDot = clearObject;
                 }
             }    
             setHints(!appearHints)
@@ -66,6 +60,7 @@ function Queen(props) {
                 clearUnnessesaryCells(elem, position);
             }
         }
+
 
         function clearUnnessesaryCells(elem, position){
             if(elem.position.x > position.x && elem.position.y > position.y){
@@ -125,7 +120,7 @@ function Queen(props) {
                 onClick={() =>{hintsToMove(props.position)}}>
             <img src={setImageFigure(props.color)} alt="queen"/>
         </button>
-     );
+    );
 }
 
 export default Queen;

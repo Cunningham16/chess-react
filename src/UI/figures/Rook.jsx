@@ -19,23 +19,22 @@ function Rook(props) {
         }
 
         for(let elem of boardArray){
+            const dotObject = {position: elem.position, id: 'dot', figurePosition: position, type: 'dot'};
+            const circleObject = {position: elem.position, id: 'dot', figurePosition: position, type: 'circle'};
+            const clearObject = {type: 'toClean'};
             for(let i = 0; i <= 7; i++){
-                if(elem.whatPlaced === undefined 
-                    && (((elem.position.y === position.y-i || elem.position.y === position.y+i) && elem.position.x === position.x)
-                    || ((elem.position.x === position.x-i || elem.position.x === position.x+i) && elem.position.y === position.y))){
-                        elem.setDot = {position: elem.position, id: 'dot', figurePosition: position, type: 'dot'};
+                const moveHoristontalVertical = 
+                ((elem.position.y === position.y-i || elem.position.y === position.y+i) && elem.position.x === position.x)
+                || ((elem.position.x === position.x-i || elem.position.x === position.x+i) && elem.position.y === position.y)
+
+                if(elem.whatPlaced === undefined && moveHoristontalVertical){
+                    elem.setDot = dotObject;
                 }
                 
-                if(elem.whatPlaced !== undefined 
-                    && (((elem.position.y === position.y-i || elem.position.y === position.y+i) && elem.position.x === position.x)
-                    || ((elem.position.x === position.x-i || elem.position.x === position.x+i) && elem.position.y === position.y))
-                    && elem.whatPlaced.color !== props.color){
-                        elem.setDot = {position: elem.position, id: 'dot', figurePosition: position, type: 'circle'};
-                }else if(elem.whatPlaced !== undefined 
-                    && (((elem.position.y === position.y-i || elem.position.y === position.y+i) && elem.position.x === position.x)
-                    || ((elem.position.x === position.x-i || elem.position.x === position.x+i) && elem.position.y === position.y))
-                    && elem.whatPlaced.color === props.color){
-                        elem.setDot = {type: 'toClean'};
+                if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color !== props.color){
+                    elem.setDot = circleObject;
+                }else if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color === props.color){
+                    elem.setDot = clearObject;
                 }
             }    
             setHints(!appearHints)
@@ -67,7 +66,7 @@ function Rook(props) {
                         }
                     }
                 }
-            }
+        }
     }
 
     return ( 

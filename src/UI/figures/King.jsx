@@ -48,7 +48,7 @@ function King(props) {
                 onClick={() => {
                     hintsToMove(props.position)
                 }}>
-            <img src={setImageFigure(props.color)} alt="" />
+            <img src={setImageFigure(props.color)} alt=""/>
         </button>
      );
 }
