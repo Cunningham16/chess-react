@@ -31,7 +31,7 @@ export function pawnMoveHints(position, boardArray, setHints, appearHints, props
 
         if(pawnFirstMoveBlack || pawnFirstMoveWhite || pawnDefaultMoveBlack || pawnDefaultMoveWhite){
             elem.setDot = dotObject;
-        }else if(pawnAttackWhite || pawnAttackBlack){
+        }else if((pawnAttackWhite || pawnAttackBlack) && elem.whatPlaced.id !== 'king'){
             elem.setDot = circleObject;
         }            
     }

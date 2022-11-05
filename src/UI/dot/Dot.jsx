@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { BoardContext } from '../../context';
 import classes from './dot.module.css';
+import { changeTurn } from '../../figuresLogic/changeTurn';
 
 function Dot(props) {   
-    const {boardArray, setHints, appearHints} = useContext(BoardContext)
+    const {boardArray, setHints, appearHints, setTurn} = useContext(BoardContext)
 
     function moveFigure(objectDot){
         for(let elem of boardArray){
@@ -13,6 +14,7 @@ function Dot(props) {
                 for(let newPos of boardArray){
                     if(newPos.position === objectDot.position){
                         newPos.whatPlaced = figure;
+                        changeTurn(newPos.position, setTurn, boardArray);
                     }
                 }
             }

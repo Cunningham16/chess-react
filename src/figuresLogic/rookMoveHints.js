@@ -17,7 +17,7 @@ export function rookMoveHints(position, boardArray, setHints, appearHints, props
                 elem.setDot = dotObject;
             }
             
-            if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color !== props.color){
+            if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color !== props.color && elem.whatPlaced.id !== 'king'){
                 elem.setDot = circleObject;
             }else if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color === props.color){
                 elem.setDot = clearObject;

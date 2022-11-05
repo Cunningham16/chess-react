@@ -124,6 +124,7 @@ function createBoard(){
 }
 
 function App() {
+  const [turn, setTurn] = useState('light');
   const [boardArray, setBoardArray] = useState(createBoard())
   const [appearHints, setHints] = useState();
 
@@ -133,6 +134,8 @@ function App() {
       setBoardArray,
       appearHints, 
       setHints,
+      turn, 
+      setTurn
     }}>
       <div className="App">
           <Board />

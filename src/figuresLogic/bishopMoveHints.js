@@ -14,7 +14,7 @@ export function bishopMoveHints(position, boardArray, setHints, appearHints, pro
             if(elem.whatPlaced !== undefined 
                 && (elem.position.y === position.y-i || elem.position.y === position.y+i) 
                 && (elem.position.x === position.x-i || elem.position.x === position.x+i)
-                && elem.whatPlaced.color !== props.color){
+                && elem.whatPlaced.color !== props.color && elem.whatPlaced.id !== 'king'){
                     elem.setDot = {position: elem.position, id: 'dot', figurePosition: position, type: 'circle'};
             }else if(elem.whatPlaced !== undefined 
                 && (elem.position.y === position.y-i || elem.position.y === position.y+i) 
