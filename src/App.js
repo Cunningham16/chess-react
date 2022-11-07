@@ -118,6 +118,7 @@ function createBoard(){
       position: setPosition(i),
       color: setColor(i-1),
       setDot: undefined,
+      hasAvaliableMove: false,
     }
   }
   return array;

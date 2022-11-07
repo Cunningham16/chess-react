@@ -17,7 +17,9 @@ function Bishop(props) {
 
     return ( 
         <button className={classes.board_figure}
-                onClick={() => {bishopMoveHints(props.position, boardArray, setHints, appearHints, props, setTurn)}}
+                onClick={() => {
+                    bishopMoveHints(props.position, boardArray, setHints, appearHints, props, setTurn);
+                }}
                 disabled={isTurn(props.color, turn)}>
             <img src={setImageFigure(props.color)} alt="bishop" />
         </button>
