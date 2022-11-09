@@ -11,7 +11,6 @@ const arrayFigures = [
   {position: 14, color: 'dark', id: 'pawn'},
   {position: 15, color: 'dark', id: 'pawn'},
   {position: 16, color: 'dark', id: 'pawn'},
-
   {position: 49, color: 'light', id: 'pawn'},
   {position: 50, color: 'light', id: 'pawn'},
   {position: 51, color: 'light', id: 'pawn'},
@@ -20,7 +19,6 @@ const arrayFigures = [
   {position: 54, color: 'light', id: 'pawn'},
   {position: 55, color: 'light', id: 'pawn'},
   {position: 56, color: 'light', id: 'pawn'},
-
   {position: 3, color: 'dark', id: 'bishop'},
   {position: 6, color: 'dark', id: 'bishop'},
 
@@ -38,7 +36,6 @@ const arrayFigures = [
 
   {position: 57, color: 'light', id: 'rook'},
   {position: 64, color: 'light', id: 'rook'},
-
   {position: 4, color: 'dark', id: 'queen'},
   {position: 60, color: 'light', id: 'queen'},
 
