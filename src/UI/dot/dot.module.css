@@ -34,3 +34,7 @@
     border-radius: 50px;
     opacity: 0.7;
 }
+
+.selected{
+    background-color: green!important;
+}

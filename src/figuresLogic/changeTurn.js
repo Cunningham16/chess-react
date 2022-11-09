@@ -1,6 +1,4 @@
-import { verifyCheckKing } from "./verifyCheckKing";
-
-export function changeTurn(position, setTurn, boardArray){
+export function changeTurn(position, setTurn, boardArray, turn){
     for(let elem of boardArray){
         if(elem.position === position && elem.whatPlaced !== undefined){
             let color = elem.whatPlaced.color;
@@ -9,7 +7,6 @@ export function changeTurn(position, setTurn, boardArray){
             }else if(color === 'dark'){
                 setTurn('light')
             }
-            verifyCheckKing(boardArray, color)
         }    
     }
 }

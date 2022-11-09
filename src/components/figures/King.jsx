@@ -3,6 +3,7 @@ import { BoardContext } from '../../context';
 import classes from './figures.module.css';
 import { kingMoveHints } from '../../figuresLogic/kingMoveHints';
 import { isTurn } from '../../figuresLogic/setTurn';
+import { castlingHints } from '../../figuresLogic/castlingHints';
 
 function setImageFigure(color){
     if(color === 'dark'){
@@ -18,7 +19,8 @@ function King(props) {
     return ( 
         <button className={classes.board_figure}
                 onClick={() => {
-                    kingMoveHints(props.position, boardArray, setHints, appearHints, props, setTurn)
+                    kingMoveHints(props.position, boardArray, setHints, appearHints, props);
+                    castlingHints(boardArray, setHints, appearHints, turn)
                 }}
                 disabled={isTurn(props.color, turn)}>
             <img src={setImageFigure(props.color)} alt=""/>

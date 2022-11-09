@@ -1,4 +1,4 @@
-export function kingMoveHints(position, boardArray, setHints, appearHints, props, setTurn){
+export function kingMoveHints(position, boardArray, setHints, appearHints, props){
     for(let elem of boardArray){
         elem.setDot = undefined;
     }

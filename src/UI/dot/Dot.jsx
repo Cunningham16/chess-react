@@ -2,24 +2,70 @@ import React, { useContext } from 'react';
 import { BoardContext } from '../../context';
 import classes from './dot.module.css';
 import { changeTurn } from '../../figuresLogic/changeTurn';
+//import { verifyCheckKing } from '../../figuresLogic/verifyCheckKing';
 
 function Dot(props) {   
     const {boardArray, setHints, appearHints, setTurn} = useContext(BoardContext)
 
     function moveFigure(objectDot){
-        for(let elem of boardArray){
-            if(elem.whatPlaced !== undefined && elem.position === objectDot.figurePosition){
-                let figure = elem.whatPlaced;
-                elem.whatPlaced = undefined;
-                for(let newPos of boardArray){
-                    if(newPos.position === objectDot.position){
-                        newPos.whatPlaced = figure;
-                        changeTurn(newPos.position, setTurn, boardArray);
+        if(objectDot.type !== 'castling'){
+            for(let elem of boardArray){
+                if(elem.whatPlaced !== undefined && elem.position === objectDot.figurePosition){
+                    let figure = elem.whatPlaced;
+                    elem.whatPlaced = undefined;
+                    for(let newPos of boardArray){
+                        if(newPos.position === objectDot.position){
+                            //verifyCheckKing(boardArray, figure.color)
+                            newPos.whatPlaced = figure;
+                            changeTurn(newPos.position, setTurn, boardArray);
+                        }
                     }
                 }
             }
+        }else if(objectDot.type === 'castling'){
+            let king;
+            let rook; 
+            for(let elem of boardArray){
+                if(elem.whatPlaced !== undefined 
+                    && (elem.position === objectDot.kingPosition || elem.position === objectDot.rookPosition)){
+
+                    if(elem.whatPlaced.id === 'king'){
+                        king = elem;
+                    }else if(elem.whatPlaced.id === 'rook'){
+                        rook = elem;
+                    }
+                }
+            }
+
+            if(king.position.x < rook.position.x){
+                for(let newPos of boardArray){
+                    if(objectDot.position.x-1 === newPos.position.x && objectDot.position.y === newPos.position.y){
+                        newPos.whatPlaced = rook.whatPlaced;
+                    }
+                }           
+            }else if(king.position.x > rook.position.x){
+                for(let newPos of boardArray){
+                    if(objectDot.position.x+1 === newPos.position.x && objectDot.position.y === newPos.position.y){
+                        newPos.whatPlaced = rook.whatPlaced;
+                    }
+                }
+            }
+
+            for(let newPos of boardArray){
+                if(newPos.position === objectDot.position){
+                    newPos.whatPlaced = king.whatPlaced;
+                    changeTurn(newPos.position, setTurn, boardArray);
+                }
+            } 
+
+            for(let elem of boardArray){
+                if(elem.whatPlaced !== undefined 
+                    && (elem.position === objectDot.kingPosition || elem.position === objectDot.rookPosition)){
+                        elem.whatPlaced = undefined;
+                }
+            }
         }
-        setHints(!appearHints)
+
         for(let elem of boardArray){
             elem.setDot = undefined;
         }
@@ -34,7 +80,8 @@ function Dot(props) {
                 return classes.circle;
             case 'toClean':
                 return classes.hidden;
-        
+            case 'castling':
+                return classes.dot;
             default:
                 break;
         }

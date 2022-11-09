@@ -9,7 +9,7 @@ import Queen from '../../components/figures/Queen';
 import Rook from '../../components/figures/Rook';
 import classes from './boardSection.module.css';
 
-function colorSection(color){
+function colorSection(color, object){
     if(color === "dark"){
         return classes.dark;
     }else if(color === "light"){

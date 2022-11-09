@@ -1,8 +1,10 @@
 //this code is not optimized, optimize this later (for myself)
-
+// this work only for black, not white. I dont know how handle this, thats why Im disabling this part of code
 export function verifyCheckKing(boardArray, color){
     for(let elem of boardArray){
-        elem.hasAvaliableMove = false;
+        if(elem.hasAvaliableMove !== false){
+            elem.hasAvaliableMove = false;
+        }
     }
 
     for(let elem of boardArray){
@@ -29,18 +31,19 @@ export function verifyCheckKing(boardArray, color){
             
                 default:
                     break;
-            }  
-        }
-        if(elem.whatPlaced !== undefined 
-            && elem.whatPlaced.id === 'king' 
-            && elem.whatPlaced.color !== color 
-            && elem.hasAvaliableMove === true){
-                console.log('Check!');
-        }
-    }
+            }
+        }  
+
+        //if(elem.whatPlaced !== undefined 
+        //    && elem.whatPlaced.id === 'king' 
+        //    && elem.whatPlaced.color !== color 
+        //    && elem.hasAvaliableMove === true){
+        //        console.log('Check!');
+        //}
+    }//
     
 
-    function forPawn(position){
+    function forPawn(position, color){
         for(let elem of boardArray){
             let pawnAttackBlack = color === 'dark' 
                                 && (elem.position.x === position.x-1 || elem.position.x === position.x+1)
@@ -57,7 +60,7 @@ export function verifyCheckKing(boardArray, color){
         }
     }
 
-    function forRook(position){
+    function forRook(position, color){
         for(let elem of boardArray){
             for(let i = 0; i <= 7; i++){
                 const moveHoristontalVertical = 
@@ -103,7 +106,7 @@ export function verifyCheckKing(boardArray, color){
         }
     }
 
-    function forBishop(position){
+    function forBishop(position, color){
         boardArray.forEach(elem => {
             for(let i = 0; i <= 7; i++){
                 if(elem.whatPlaced === undefined 
@@ -162,7 +165,7 @@ export function verifyCheckKing(boardArray, color){
         }
     }
 
-    function forQueen(position){
+    function forQueen(position, color){
         boardArray.forEach((elem) => {    
             for(let i = 0; i <= 7; i++){
                 const moveHoristontalVertical = ((elem.position.y === position.y-i || elem.position.y === position.y+i) && elem.position.x === position.x)
@@ -253,7 +256,7 @@ export function verifyCheckKing(boardArray, color){
         }
     }
 
-    function forKnight(position){
+    function forKnight(position, color){
         for(let elem of boardArray){
             if((elem.position.x === position.x+2 && elem.position.y === position.y+1) 
                 || (elem.position.x === position.x+1 && elem.position.y === position.y+2)
@@ -272,7 +275,7 @@ export function verifyCheckKing(boardArray, color){
         }
     }
 
-    function forKing(position){
+    function forKing(position, color){
         for(let elem of boardArray){
             if((elem.position.x === position.x+1 
                     || elem.position.x === position.x-1
