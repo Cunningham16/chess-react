@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Board from "./components/Board";
+import PlayerInfo from "./components/PlayerInfo";
 import { BoardContext } from './context';
 
 const arrayFigures = [
@@ -11,6 +12,7 @@ const arrayFigures = [
   {position: 14, color: 'dark', id: 'pawn'},
   {position: 15, color: 'dark', id: 'pawn'},
   {position: 16, color: 'dark', id: 'pawn'},
+
   {position: 49, color: 'light', id: 'pawn'},
   {position: 50, color: 'light', id: 'pawn'},
   {position: 51, color: 'light', id: 'pawn'},
@@ -19,6 +21,7 @@ const arrayFigures = [
   {position: 54, color: 'light', id: 'pawn'},
   {position: 55, color: 'light', id: 'pawn'},
   {position: 56, color: 'light', id: 'pawn'},
+
   {position: 3, color: 'dark', id: 'bishop'},
   {position: 6, color: 'dark', id: 'bishop'},
 
@@ -36,6 +39,7 @@ const arrayFigures = [
 
   {position: 57, color: 'light', id: 'rook'},
   {position: 64, color: 'light', id: 'rook'},
+
   {position: 4, color: 'dark', id: 'queen'},
   {position: 60, color: 'light', id: 'queen'},
 
@@ -125,9 +129,15 @@ function App() {
   const [turn, setTurn] = useState('light');
   const [boardArray, setBoardArray] = useState(createBoard())
   const [appearHints, setHints] = useState();
+  const [fallenFiguresLight, setFallenFiguresLight] = useState([]);
+  const [fallenFiguresDark, setFallenFiguresDark] = useState([]);
 
   return (
     <BoardContext.Provider value={{
+      fallenFiguresLight, 
+      setFallenFiguresLight,
+      fallenFiguresDark, 
+      setFallenFiguresDark,
       boardArray,
       setBoardArray,
       appearHints, 
@@ -136,7 +146,9 @@ function App() {
       setTurn
     }}>
       <div className="App">
+          <PlayerInfo color = 'dark'/>
           <Board />
+          <PlayerInfo color = 'light'/>
       </div>
     </BoardContext.Provider>
   );

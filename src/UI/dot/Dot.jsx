@@ -5,7 +5,20 @@ import { changeTurn } from '../../figuresLogic/changeTurn';
 //import { verifyCheckKing } from '../../figuresLogic/verifyCheckKing';
 
 function Dot(props) {   
-    const {boardArray, setHints, appearHints, setTurn} = useContext(BoardContext)
+    const {boardArray, 
+            setHints, 
+            appearHints, 
+            setTurn, 
+            fallenFiguresLight,
+            fallenFiguresDark} = useContext(BoardContext);
+
+    function setFallenFigure(color, newPos){
+        if(color === 'dark'){
+            fallenFiguresDark.push(newPos.whatPlaced);
+        }else if( color === 'light'){
+            fallenFiguresLight.push(newPos.whatPlaced);
+        }
+    }
 
     function moveFigure(objectDot){
         if(objectDot.type !== 'castling'){
@@ -15,6 +28,9 @@ function Dot(props) {
                     elem.whatPlaced = undefined;
                     for(let newPos of boardArray){
                         if(newPos.position === objectDot.position){
+                            if(newPos.whatPlaced !== undefined){
+                                setFallenFigure(newPos.whatPlaced.color, newPos)
+                            }
                             //verifyCheckKing(boardArray, figure.color)
                             newPos.whatPlaced = figure;
                             changeTurn(newPos.position, setTurn, boardArray);

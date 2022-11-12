@@ -8,16 +8,69 @@ body{
     overflow-x: hidden;
 }
 
+body{
+    background-color: rgba(0,0,0,.7);
+}
+
+.fallen-figures{
+    align-self: flex-start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div .fallen-figures img{
+    width: 22px;
+    height: 22px;
+}
+
 .App{
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     width: 100%;
 }
 
+.player-info{
+    padding: 7px;
+    width: 520px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+
+.player-info img{
+    width: 50px;
+    height: 50px;
+}
+
+.info{
+    height: 100%;
+    margin-left: 15px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-direction: column;
+    align-self: flex-start;
+}
+
+.name{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1em;
+    color: white;
+    font-weight: 700;
+    align-self: flex-start;
+    margin: 0;
+}
+
+.player-info__left-side{
+    display: flex;
+}
+
 .board{
-    width: 560px;
-    height: 560px;
+    width: 520px;
+    height: 520px;
 
     display: flex;
     flex-wrap: wrap;
