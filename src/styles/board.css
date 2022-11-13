@@ -29,7 +29,8 @@ div .fallen-figures img{
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: calc(100%-180px);
+    margin-left: 180px;
 }
 
 .player-info{

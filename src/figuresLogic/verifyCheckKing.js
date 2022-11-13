@@ -1,29 +1,32 @@
 //this code is not optimized, optimize this later (for myself)
-// this work only for black, not white. I dont know how handle this, thats why Im disabling this part of code
-export function verifyCheckKing(boardArray, color){
+export function verifyCheckKing(boardArray, color, setBoardArray){
     for(let elem of boardArray){
         if(elem.hasAvaliableMove !== false){
             elem.hasAvaliableMove = false;
         }
     }
 
+    if(color === 'light'){
+        setBoardArray(boardArray.reverse())
+    }
+
     for(let elem of boardArray){
         if(elem.whatPlaced !== undefined && elem.whatPlaced.color === color){
             switch (elem.whatPlaced.id) {
                 case 'pawn':
-                    forPawn(elem.position);
+                    forPawn(elem.position, color);
                     break;
                 case 'rook':
-                    forRook(elem.position);
+                    forRook(elem.position, color);
                     break;
                 case 'queen':
-                    forQueen(elem.position);
+                    forQueen(elem.position, color);
                     break;
                 case 'knight':
-                    forKnight(elem.position);
+                    forKnight(elem.position, color);
                     break;
                 case 'bishop':
-                    forBishop(elem.position);
+                    forBishop(elem.position, color);
                     break;
                 case 'king':
                     forKing(elem.position);
@@ -33,14 +36,16 @@ export function verifyCheckKing(boardArray, color){
                     break;
             }
         }  
+    }
 
-        //if(elem.whatPlaced !== undefined 
-        //    && elem.whatPlaced.id === 'king' 
-        //    && elem.whatPlaced.color !== color 
-        //    && elem.hasAvaliableMove === true){
-        //        console.log('Check!');
-        //}
-    }//
+    for(let elem of boardArray){
+        if(elem.whatPlaced !== undefined 
+            && elem.whatPlaced.id === 'king' 
+            && elem.whatPlaced.color !== color 
+            && (elem.hasAvaliableMove === true || elem.hasAvaliableMove === 'toClean')){
+                console.log('Check!');
+        }
+    }
     
 
     function forPawn(position, color){
@@ -114,11 +119,10 @@ export function verifyCheckKing(boardArray, color){
                     && (elem.position.x === position.x-i || elem.position.x === position.x+i)){
                         elem.hasAvaliableMove = true;
                 }
-                
                 if(elem.whatPlaced !== undefined 
                     && (elem.position.y === position.y-i || elem.position.y === position.y+i) 
                     && (elem.position.x === position.x-i || elem.position.x === position.x+i)
-                    && elem.whatPlaced.color !== color && elem.whatPlaced.id !== 'king'){
+                    && elem.whatPlaced.color !== color){
                         elem.hasAvaliableMove = 'toClean';
                 }else if(elem.whatPlaced !== undefined 
                     && (elem.position.y === position.y-i || elem.position.y === position.y+i) 
@@ -128,8 +132,7 @@ export function verifyCheckKing(boardArray, color){
                 }
             }    
         })
-        
-        // cleaning unnesesary cells for hints
+
         for(let elem of boardArray){
             if(elem.hasAvaliableMove !== false && elem.hasAvaliableMove === 'toClean'){
                 clearUnnessesaryCells(elem, position);
@@ -176,9 +179,9 @@ export function verifyCheckKing(boardArray, color){
                 }
                 
                 if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color !== color && elem.whatPlaced.id !== 'king'){
-                    elem.hasAvaliableMove = 'toClear';
+                    elem.hasAvaliableMove = 'toClean';
                 }else if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color === color){
-                    elem.hasAvaliableMove = 'toClear';
+                    elem.hasAvaliableMove = 'toClean';
                 }
     
                 const moveDiagonal = (elem.position.y === position.y-i || elem.position.y === position.y+i) 
@@ -189,9 +192,9 @@ export function verifyCheckKing(boardArray, color){
                 }
                 
                 if(elem.whatPlaced !== undefined && moveDiagonal && elem.whatPlaced.color !== color){
-                    elem.hasAvaliableMove = 'toClear';
+                    elem.hasAvaliableMove = 'toClean';
                 }else if(elem.whatPlaced !== undefined && moveDiagonal && elem.whatPlaced.color === color){
-                    elem.hasAvaliableMove = 'toClear';
+                    elem.hasAvaliableMove = 'toClean';
                 }
             }    
         })
@@ -275,7 +278,7 @@ export function verifyCheckKing(boardArray, color){
         }
     }
 
-    function forKing(position, color){
+    function forKing(position){
         for(let elem of boardArray){
             if((elem.position.x === position.x+1 
                     || elem.position.x === position.x-1
@@ -287,5 +290,9 @@ export function verifyCheckKing(boardArray, color){
                 elem.hasAvaliableMove = true;
             }
         }
+    }
+
+    if(color === 'light'){
+        setBoardArray(boardArray.reverse())
     }
 }
