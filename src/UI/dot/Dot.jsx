@@ -105,6 +105,7 @@ function Dot(props) {
         <button className={setTypeHint(props.objectDot.type)}
                 onClick={() => {
                     moveFigure(props.objectDot);
+                    boardArray.reverse()
                 }}>
             {props.children}
         </button>

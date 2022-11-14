@@ -2,7 +2,6 @@ import React from 'react';
 import '../styles/sidebar.css';
 import { Link } from 'react-router-dom';
 
-
 function SideBar(props) {
     return ( 
         <div className='sidebar'>
@@ -16,16 +15,19 @@ function SideBar(props) {
                     <p>Play with friend</p>
                 </button>
                 </Link>
-                <button className='sidebar__button'>
-                    <img src="./img/desktop.png" alt="computer" />
-                    <p>Play with AI</p>
-                </button>
+                <Link to = '/playai'>
+                    <button className='sidebar__button'>
+                        <img src="./img/desktop.png" alt="computer" />
+                        <p>Play with AI</p>
+                    </button>
+                </Link>
             </div>
-
-            <button className='sidebar__button'>
-                <img src="./img/settings.png" alt="settings" />
-                <p>Settings</p>
-            </button>
+            <Link to = '/settings'>
+                <button className='sidebar__button'>
+                    <img src="./img/settings.png" alt="settings" />
+                    <p>Settings</p>
+                </button>
+            </Link>
         </div>
     );
 }

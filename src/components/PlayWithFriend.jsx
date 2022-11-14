@@ -134,7 +134,7 @@ function PlayWithFriend(props) {
     const [fallenFiguresDark, setFallenFiguresDark] = useState([]);
 
     return ( 
-        <div>
+        <div className='board-game'>
             <BoardContext.Provider value={{
           fallenFiguresLight, 
           setFallenFiguresLight,
