@@ -12,14 +12,16 @@ function setImageFigure(color){
     }
 }
 
-function Queen(props) {
-    const {boardArray, appearHints, setHints, turn, setTurn} = useContext(BoardContext);
+function Queen({ position, color, figureObject }) {
+    const {boardArray, appearHints, setHints, turn} = useContext(BoardContext);
 
     return ( 
         <button className={classes.board_figure}
-                onClick={() =>{queenMoveHints(props.position, boardArray, setHints, appearHints, props, setTurn)}}
-                disabled={isTurn(props.color, turn)}>
-            <img src={setImageFigure(props.color)} alt="queen"/>
+                onClick={() => {
+                    queenMoveHints(position, boardArray, setHints, appearHints, color, figureObject);
+                }}
+                disabled={isTurn(color, turn)}>
+            <img src={setImageFigure(color)} alt="queen"/>
         </button>
     );
 }

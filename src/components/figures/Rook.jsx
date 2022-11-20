@@ -12,16 +12,16 @@ function setImageFigure(color){
     }
 }
 
-function Rook(props) {
+function Rook({ position, color, figureObject }) {
     const {boardArray, appearHints, setHints, turn} = useContext(BoardContext);
 
     return ( 
         <button className={classes.board_figure}
                 onClick={() => {
-                    rookMoveHints(props.position, boardArray, setHints, appearHints, props);
+                    rookMoveHints(position, boardArray, setHints, appearHints, figureObject);
                 }}
-                disabled={isTurn(props.color, turn)}>
-            <img src={setImageFigure(props.color)} alt="rook"/>
+                disabled={isTurn(color, turn)}>
+            <img src={setImageFigure(color)} alt="rook"/>
         </button>
      );
 }

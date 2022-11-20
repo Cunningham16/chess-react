@@ -121,6 +121,7 @@ const arrayFigures = [
         color: setColor(i-1),
         setDot: undefined,
         hasAvaliableMove: false,
+        avaliableMoves: undefined,
       }
     }
     return array;

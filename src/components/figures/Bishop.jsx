@@ -12,16 +12,16 @@ function setImageFigure(color){
     }
 }
 
-function Bishop(props) {
-    const {boardArray, setHints, appearHints, turn, setTurn} = useContext(BoardContext);
+function Bishop({ position, color, figureObject }) {
+    const {boardArray, setHints, appearHints, turn} = useContext(BoardContext);
 
     return ( 
         <button className={classes.board_figure}
                 onClick={() => {
-                    bishopMoveHints(props.position, boardArray, setHints, appearHints, props, setTurn);
+                    bishopMoveHints(position, boardArray, setHints, appearHints, figureObject);
                 }}
-                disabled={isTurn(props.color, turn)}>
-            <img src={setImageFigure(props.color)} alt="bishop" />
+                disabled={isTurn(color, turn)}>
+            <img src={setImageFigure(color)} alt="bishop" />
         </button>
      );
 }

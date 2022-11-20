@@ -14,25 +14,25 @@ function setImageFigure(color){
     }
 }
 
-function Pawn(props) {
-    const {boardArray, appearHints, setHints, turn, setTurn} = useContext(BoardContext);
+function Pawn({ position, color, figureObject }) {
+    const {boardArray, appearHints, setHints, turn} = useContext(BoardContext);
 
     function promotePawn(){
-        if(props.position.y === 7 && props.color === 'dark'){
-            return <PromotionPawn color='dark' position = {props.position}/>
-        }else if(props.position.y === 0 && props.color === 'light'){
-            return <PromotionPawn color='light' position = {props.position}/>
+        if(position.y === 7 && color === 'dark'){
+            return <PromotionPawn color='dark' position = {position}/>
+        }else if(position.y === 0 && color === 'light'){
+            return <PromotionPawn color='light' position = {position}/>
         }
     }
 
     return ( 
         <button className={classes.board_figure}
                onClick={() => {
-                    pawnMoveHints(props.position, boardArray, setHints, appearHints, props, setTurn);
+                    pawnMoveHints(position, boardArray, setHints, appearHints, figureObject);
                }}
-               disabled={isTurn(props.color, turn)}>
+               disabled={isTurn(color, turn)}>
             {promotePawn()}
-            <img src={setImageFigure(props.color)} alt="img" />
+            <img src={setImageFigure(color)} alt="img" />
         </button>
     );
 }

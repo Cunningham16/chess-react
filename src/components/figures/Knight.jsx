@@ -12,16 +12,16 @@ function setImageFigure(color){
     }
 }
 
-function Knight(props) {
+function Knight({ position, color, figureObject }) {
     const {boardArray, appearHints, setHints, turn} = useContext(BoardContext);
 
     return ( 
         <button className={classes.board_figure}
                 onClick={() => {
-                    knightMoveHints(props.position, boardArray, setHints, appearHints, props)
+                    knightMoveHints(position, boardArray, setHints, appearHints, figureObject)
                 }}
-                disabled={isTurn(props.color, turn)}>
-            <img src={setImageFigure(props.color)} alt="knight"/>
+                disabled={isTurn(color, turn)}>
+            <img src={setImageFigure(color)} alt="knight"/>
         </button>
     );
 }

@@ -9,7 +9,7 @@ import Queen from '../../components/figures/Queen';
 import Rook from '../../components/figures/Rook';
 import classes from './boardSection.module.css';
 
-function colorSection(color, object){
+function colorSection(color){
     if(color === "dark"){
         return classes.dark;
     }else if(color === "light"){
@@ -17,7 +17,7 @@ function colorSection(color, object){
     }
 }
 
-function BoardSection(props) { 
+function BoardSection({ objectBoard }) { 
     const {appearHints} = useContext(BoardContext);
 
     function declare(object){
@@ -26,27 +26,39 @@ function BoardSection(props) {
             switch (idFigure) {
                 case 'pawn':
                     return(
-                        <Pawn position={object.position} color={object.whatPlaced.color}/>
+                        <Pawn position={object.position} 
+                              color={object.whatPlaced.color} 
+                              figureObject = {object.whatPlaced}/>
                     );
                 case 'bishop':
                     return(
-                        <Bishop position={object.position} color={object.whatPlaced.color}/>
+                        <Bishop position={object.position} 
+                                color={object.whatPlaced.color} 
+                                figureObject = {object.whatPlaced}/>
                     );
                 case 'knight':
                     return(
-                        <Knight position={object.position} color={object.whatPlaced.color}/>
+                        <Knight position={object.position} 
+                                color={object.whatPlaced.color} 
+                                figureObject = {object.whatPlaced}/>
                     );
                 case 'rook':
                     return(
-                        <Rook position={object.position} color={object.whatPlaced.color}/>
+                        <Rook position={object.position} 
+                              color={object.whatPlaced.color} 
+                              figureObject = {object.whatPlaced}/>
                     );
                 case 'queen':
                     return(
-                        <Queen position={object.position} color={object.whatPlaced.color}/>
+                        <Queen position={object.position} 
+                               color={object.whatPlaced.color} 
+                               figureObject = {object.whatPlaced}/>
                     );
                 case 'king':
                     return(
-                        <King position={object.position} color={object.whatPlaced.color}/>
+                        <King position={object.position} 
+                              color={object.whatPlaced.color} 
+                              figureObject = {object.whatPlaced}/>
                     );            
                 default:
                     break;
@@ -63,14 +75,14 @@ function BoardSection(props) {
     }
 
     useEffect(() => {
-        declareHints(props.objectBoard);
-        declare(props.objectBoard);
+        declareHints(objectBoard);
+        declare(objectBoard);
     }, [appearHints])
 
     return ( 
-        <div className = {colorSection(props.objectBoard.color)}>
-            {declareHints(props.objectBoard)}
-            {declare(props.objectBoard)}
+        <div className = {colorSection(objectBoard.color)}>
+            {declareHints(objectBoard)}
+            {declare(objectBoard)}
         </div>
     );
 }
