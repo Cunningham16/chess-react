@@ -4,9 +4,8 @@ import { useContext } from 'react';
 import { BoardContext } from '../context';
 import Timer from '../UI/timer/Timer';
 
-function PlayerInfo(props) {
-    const {color} = props;
-    const {fallenFiguresLight, fallenFiguresDark, turn} = useContext(BoardContext);
+function PlayerInfo({ color }) {
+    const {fallenFiguresLight, fallenFiguresDark} = useContext(BoardContext);
 
     function setColor(color){
         if(color === 'dark'){

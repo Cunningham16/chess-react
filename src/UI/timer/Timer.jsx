@@ -15,17 +15,28 @@ function convertTime(time){
     return `${minutes}:${seconds}`
 }
 
-function Timer(props) {
-    const {color} = props;
-    const {turn} = useContext(BoardContext);
-    const [time, setTime] = useState(600);
+function Timer({ color }) {
+    const {turn, setIsEndCase} = useContext(BoardContext);
+    const [time, setTime] = useState(10);
+    const [isStart, setIsStart] = useState(true)
 
     useEffect(function () {
-        setTimeout(() => {
-            if (turn === color) {
-                setTime(time - 1);
-            }
-        }, 1000);
+        if(isStart){
+            setTimeout(() => {
+                if (turn === color) {
+                    setTime(time - 1);
+                }
+        
+                if(time === 1){
+                    setIsEndCase({
+                        status: true,
+                        type: 'timeOut',
+                        color: color,
+                    })
+                    setIsStart(false);
+                }
+            }, 1000);
+        }
     })
 
     function setColorTimer(color){

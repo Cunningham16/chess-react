@@ -3,6 +3,8 @@ import Board from "./Board";
 import PlayerInfo from "./PlayerInfo";
 import { BoardContext } from '../context';
 import { useState } from "react";
+import { useEffect } from 'react';
+import GameOverPopUp from './GameOverPopUp';
 
 const arrayFigures = [
     {position: 9, color: 'dark', id: 'pawn'},
@@ -133,25 +135,45 @@ function PlayWithFriend(props) {
     const [appearHints, setHints] = useState();
     const [fallenFiguresLight, setFallenFiguresLight] = useState([]);
     const [fallenFiguresDark, setFallenFiguresDark] = useState([]);
+    const [isEndCase, setIsEndCase] = useState({
+      type: undefined,
+      status: false,
+      color: undefined
+    })
+
+    const contextObject = {
+      fallenFiguresLight, 
+      setFallenFiguresLight,
+      fallenFiguresDark, 
+      setFallenFiguresDark,
+      boardArray,
+      setBoardArray,
+      appearHints, 
+      setHints,
+      turn, 
+      setTurn, 
+      isEndCase, 
+      setIsEndCase
+    }
+
+    function setPopup(){
+      if(isEndCase.status === true && isEndCase.type === 'timeOut'){
+        return <GameOverPopUp message={'Time is out'} whoWins={isEndCase.color} />
+      }
+    }
+
+    useEffect(() => {
+      setPopup();
+    }, [isEndCase])
 
     return ( 
         <div className='board-game'>
-            <BoardContext.Provider value={{
-          fallenFiguresLight, 
-          setFallenFiguresLight,
-          fallenFiguresDark, 
-          setFallenFiguresDark,
-          boardArray,
-          setBoardArray,
-          appearHints, 
-          setHints,
-          turn, 
-          setTurn
-        }}>
-          <PlayerInfo color = 'dark'/>
-          <Board />
-          <PlayerInfo color = 'light'/>
-        </BoardContext.Provider>
+            <BoardContext.Provider value={contextObject}>
+              {setPopup()}
+              <PlayerInfo color = 'dark'/>
+              <Board />
+              <PlayerInfo color = 'light'/>
+            </BoardContext.Provider>
         </div>
     );
 }

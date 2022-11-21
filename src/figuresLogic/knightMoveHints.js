@@ -1,5 +1,5 @@
 export function knightMoveHints(position, boardArray, setHints, appearHints, figureObject){
-    let isBlocked;
+    let isBlocked = false;
     for(let elem of boardArray){
         elem.setDot = undefined;
     }
