@@ -13,14 +13,22 @@ function setImageFigure(color){
 }
 
 function Queen({ position, color, figureObject }) {
-    const {boardArray, appearHints, setHints, turn} = useContext(BoardContext);
+    const {boardArray, appearHints, setHints, turn, isEndCase} = useContext(BoardContext);
+
+    function setBlocked(){
+        if(isEndCase.status){
+            return true;
+        }else{
+            return isTurn(color, turn)
+        }
+    }
 
     return ( 
         <button className={classes.board_figure}
                 onClick={() => {
                     queenMoveHints(position, boardArray, setHints, appearHints, color, figureObject);
                 }}
-                disabled={isTurn(color, turn)}>
+                disabled={setBlocked()}>
             <img src={setImageFigure(color)} alt="queen"/>
         </button>
     );

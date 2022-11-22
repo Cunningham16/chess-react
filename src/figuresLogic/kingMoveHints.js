@@ -1,4 +1,4 @@
-export function kingMoveHints(position, boardArray, setHints, appearHints, props){
+export function kingMoveHints(position, boardArray, setHints, appearHints, figureObject){
     for(let elem of boardArray){
         elem.setDot = undefined;
     }
@@ -22,7 +22,7 @@ export function kingMoveHints(position, boardArray, setHints, appearHints, props
                 || elem.position.y === position.y-1
                 || elem.position.y === position.y)
             && !(elem.position.x === position.x && elem.position.y === position.y)
-            && elem.whatPlaced.color !== props.color
+            && elem.whatPlaced.color !== figureObject.color
             && elem.hasAvaliableMove === false){
             elem.setDot = {position: elem.position, id: 'dot', figurePosition: position, type: 'circle'};
         }

@@ -140,6 +140,7 @@ function PlayWithFriend(props) {
       status: false,
       color: undefined
     })
+    const [isRetry, setIsRetry] = useState(false);
 
     const contextObject = {
       fallenFiguresLight, 
@@ -153,7 +154,9 @@ function PlayWithFriend(props) {
       turn, 
       setTurn, 
       isEndCase, 
-      setIsEndCase
+      setIsEndCase,
+      isRetry, 
+      setIsRetry
     }
 
     function setPopup(){
@@ -164,7 +167,32 @@ function PlayWithFriend(props) {
 
     useEffect(() => {
       setPopup();
+      for(let elem of boardArray){
+        if(elem.setDot !== undefined){
+            elem.setDot = undefined
+        }
+      }
+      setHints(!appearHints) 
     }, [isEndCase])
+
+    useEffect(() => {
+      setIsEndCase({
+        type: undefined,
+        status: false,
+        color: undefined
+      })
+      setBoardArray(createBoard())
+      setFallenFiguresDark([])
+      setFallenFiguresLight([])
+      setHints()
+      setIsRetry(false)
+
+      if(turn === 'dark'){
+        const boardContainer = document.querySelector('.board-game');
+        boardContainer.style.flexDirection = 'column';
+      }
+      setTurn('light')
+    }, [isRetry])
 
     return ( 
         <div className='board-game'>

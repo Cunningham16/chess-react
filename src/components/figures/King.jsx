@@ -13,17 +13,25 @@ function setImageFigure(color){
     }
 }
 
-function King(props) {
-    const {boardArray, appearHints, setHints, turn, setTurn} = useContext(BoardContext);
+function King({ position, color, figureObject }) {
+    const {boardArray, appearHints, setHints, turn, isEndCase} = useContext(BoardContext);
+
+    function setBlocked(){
+        if(isEndCase.status){
+            return true;
+        }else{
+            return isTurn(color, turn)
+        }
+    }
 
     return ( 
         <button className={classes.board_figure}
                 onClick={() => {
-                    kingMoveHints(props.position, boardArray, setHints, appearHints, props);
+                    kingMoveHints(position, boardArray, setHints, appearHints, figureObject);
                     castlingHints(boardArray, setHints, appearHints, turn)
                 }}
-                disabled={isTurn(props.color, turn)}>
-            <img src={setImageFigure(props.color)} alt=""/>
+                disabled={setBlocked()}>
+            <img src={setImageFigure(color)} alt=""/>
         </button>
      );
 }

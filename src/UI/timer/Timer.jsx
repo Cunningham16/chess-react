@@ -16,8 +16,8 @@ function convertTime(time){
 }
 
 function Timer({ color }) {
-    const {turn, setIsEndCase} = useContext(BoardContext);
-    const [time, setTime] = useState(10);
+    const {turn, setIsEndCase, isRetry} = useContext(BoardContext);
+    const [time, setTime] = useState(600);
     const [isStart, setIsStart] = useState(true)
 
     useEffect(function () {
@@ -38,6 +38,13 @@ function Timer({ color }) {
             }, 1000);
         }
     })
+
+    useEffect(() => {
+        if(isRetry === true){
+            setTime(600);
+            setIsStart(true);
+        }
+    }, [isRetry])
 
     function setColorTimer(color){
         if(color === 'dark'){

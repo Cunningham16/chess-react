@@ -15,7 +15,7 @@ function setImageFigure(color){
 }
 
 function Pawn({ position, color, figureObject }) {
-    const {boardArray, appearHints, setHints, turn} = useContext(BoardContext);
+    const {boardArray, appearHints, setHints, turn, isEndCase} = useContext(BoardContext);
 
     function promotePawn(){
         if(position.y === 7 && color === 'dark'){
@@ -25,12 +25,20 @@ function Pawn({ position, color, figureObject }) {
         }
     }
 
+    function setBlocked(){
+        if(isEndCase.status){
+            return true;
+        }else{
+            return isTurn(color, turn)
+        }
+    }
+
     return ( 
         <button className={classes.board_figure}
                onClick={() => {
                     pawnMoveHints(position, boardArray, setHints, appearHints, figureObject);
                }}
-               disabled={isTurn(color, turn)}>
+               disabled={setBlocked()}>
             {promotePawn()}
             <img src={setImageFigure(color)} alt="img" />
         </button>
