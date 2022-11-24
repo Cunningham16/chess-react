@@ -5,7 +5,7 @@ import '../styles/gameOverPopUp.css';
 import { Link } from 'react-router-dom';
 
 function GameOverPopUp({ message, whoWins }) {
-    const {setIsEndCase, setIsRetry} = useContext(BoardContext);
+    const {setIsRetry} = useContext(BoardContext);
 
     function clearBoard(){
         setIsRetry(true)

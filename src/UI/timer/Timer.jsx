@@ -20,19 +20,19 @@ function Timer({ color }) {
     const [time, setTime] = useState(600);
     const [isStart, setIsStart] = useState(true)
 
-    useEffect(function () {
-        if(isStart){
+    useEffect(() => {
+        if (isStart) {
             setTimeout(() => {
                 if (turn === color) {
                     setTime(time - 1);
                 }
-        
-                if(time === 1){
+
+                if (time === 1) {
                     setIsEndCase({
                         status: true,
                         type: 'timeOut',
                         color: color,
-                    })
+                    });
                     setIsStart(false);
                 }
             }, 1000);

@@ -51,14 +51,13 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
 
     function forPawn(position, color){
         for(let elem of boardArray){
-            let pawnAttackBlack = color === 'dark' 
-                                && (elem.position.x === position.x-1 || elem.position.x === position.x+1)
-                                && elem.position.y === position.y+1;
+            let moveDiagonal = elem.position.x === position.x-1 || elem.position.x === position.x+1;
 
-        
-            let pawnAttackWhite = color === 'light' 
-                                && (elem.position.x === position.x-1 || elem.position.x === position.x+1)
-                                && elem.position.y === position.y-1;
+            let attackPawnBlack = moveDiagonal && elem.position.y === position.y+1;
+            let pawnAttackBlack = color === 'dark' && attackPawnBlack;
+            
+            let attackPawnWhite = moveDiagonal && elem.position.y === position.y-1;
+            let pawnAttackWhite = color === 'light' && attackPawnWhite;
 
             if(pawnAttackWhite || pawnAttackBlack){
                 elem.hasAvaliableMove = true;

@@ -38,14 +38,14 @@ function getFigureId(elem, array){
     }
 }
 
-function PromotionPawn(props) {
+function PromotionPawn({ position, color }) {
     const {boardArray, appearHints, setHints} = useContext(BoardContext);
-    const arrayImages = setImageFigure(props.color);
+    const arrayImages = setImageFigure(color);
 
     function setNewFigure(position, boardArray, figure, appearHints, setHints){
         for(let elem of boardArray){
             if(elem.position === position){
-                elem.whatPlaced = {color: props.color, id: figure}
+                elem.whatPlaced = {color: color, id: figure}
                 setHints(!appearHints);
             }
         }
@@ -55,7 +55,7 @@ function PromotionPawn(props) {
         <section className={classes.dropdown}>
             {arrayImages.map(elem => 
                 <button onClick={() =>{
-                        setNewFigure(props.position, boardArray, getFigureId(elem, arrayImages), appearHints, setHints)
+                        setNewFigure(position, boardArray, getFigureId(elem, arrayImages), appearHints, setHints)
                     }}>
                     <img src={elem} alt=''/>
                 </button>

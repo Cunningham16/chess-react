@@ -1,9 +1,9 @@
-import PlayWithFriend from "./components/PlayWithFriend";
+import PlayWithFriend from "./components/pages/PlayWithFriend";
 import SideBar from "./components/SideBar";
 import { Routes, Route } from 'react-router-dom';
-import PlayWithAI from "./components/PlayWithAI";
-import Settings from "./components/Settings";
-import MainPage from "./components/MainPage";
+import PlayWithAI from "./components/pages/PlayWithAI";
+import Settings from "./components/pages/Settings";
+import MainPage from "./components/pages/MainPage";
 
 function App() {
   return (

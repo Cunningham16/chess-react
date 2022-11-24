@@ -1,8 +1,8 @@
 import React from 'react';
-import '../styles/mainPage.css';
+import '../../styles/mainPage.css';
 import { Link } from 'react-router-dom';
 
-function MainPage(props) {
+function MainPage() {
     return ( 
         <section className='main-page'>
             <div className="main-page__first-screen">

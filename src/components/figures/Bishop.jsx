@@ -13,22 +13,14 @@ function setImageFigure(color){
 }
 
 function Bishop({ position, color, figureObject }) {
-    const {boardArray, setHints, appearHints, turn, isEndCase} = useContext(BoardContext);
-
-    function setBlocked(){
-        if(isEndCase.status){
-            return true;
-        }else{
-            return isTurn(color, turn)
-        }
-    }
+    const {boardArray, setHints, appearHints, turn} = useContext(BoardContext);
 
     return ( 
         <button className={classes.board_figure}
                 onClick={() => {
                     bishopMoveHints(position, boardArray, setHints, appearHints, figureObject);
                 }}
-                disabled={setBlocked()}>
+                disabled={isTurn(color, turn)}>
             <img src={setImageFigure(color)} alt="bishop" />
         </button>
      );
