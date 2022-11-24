@@ -2,14 +2,15 @@
 
 export function verifyCheckKing(boardArray, color, setBoardArray){
     for(let elem of boardArray){
-        if(elem.hasAvaliableMove !== false){
-            elem.hasAvaliableMove = false;
+        if(elem.hasAvaliableAttackKing !== false){
+            elem.hasAvaliableAttackKing = false;
         }
 
         if(elem.whatPlaced !== undefined && elem.whatPlaced.avaliableMoves !== undefined){
             elem.whatPlaced.avaliableMoves = undefined;
         }
     }
+    
     setBoardArray(boardArray.reverse())
 
     for(let elem of boardArray){
@@ -38,15 +39,6 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
                     break;
             }
         }  
-    }    
-
-    for(let elem of boardArray){
-        if(elem.whatPlaced !== undefined
-            && elem.hasAvaliableMove === true
-            && elem.whatPlaced.color !== color
-            && elem.whatPlaced.id === 'king'){
-                console.log('Check!');
-            }
     }
 
     function forPawn(position, color){
@@ -60,7 +52,7 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
             let pawnAttackWhite = color === 'light' && attackPawnWhite;
 
             if(pawnAttackWhite || pawnAttackBlack){
-                elem.hasAvaliableMove = true;
+                elem.hasAvaliableAttackKing = true;
             }
         }
     }
@@ -77,57 +69,37 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
                 || ((elem.position.x === position.x-i || elem.position.x === position.x+i) && elem.position.y === position.y)
     
                 if(elem.whatPlaced === undefined && moveHoristontalVertical){
-                    elem.hasAvaliableMove = true;
+                    elem.hasAvaliableAttackKing = true;
                 }
                 
                 if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color !== color){
-                    elem.hasAvaliableMove = 'toClean';
+                    elem.hasAvaliableAttackKing = 'toClean';
                 }else if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color === color){
-                    elem.hasAvaliableMove = 'toClean';
+                    elem.hasAvaliableAttackKing = 'toClean';
                 }
 
                 if(elem.whatPlaced !== undefined && elem.whatPlaced.color !== color){
                     if(elem.position.y === position.y+i && elem.position.x === position.x){
-                        arrayFigures1.push(elem)
-                        if(arrayFigures1.length === 2 && color === 'light'){
-                            arrayFigures1 = arrayFigures1.reverse();
-                        }
-                        
-                        if(arrayFigures1.length === 2 && arrayFigures1[1].whatPlaced.id === 'king' && color === 'light'){
-                            disableMoveFigure(arrayFigures1, boardArray, color);
-                        }else if(arrayFigures1.length === 2 && elem.whatPlaced.id === 'king' && color === 'dark'){
-                            disableMoveFigure(arrayFigures1, boardArray, color);
-                        }
+                        let direction = 'down'
+                        createAttackingPositionReverse(arrayFigures1, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y-i && elem.position.x === position.x){
-                        arrayFigures2.push(elem)
-                        if(elem.whatPlaced.id === 'king' && arrayFigures2.length === 2){
-                            disableMoveFigure(arrayFigures2, boardArray, color);
-                        }
+                        let direction = 'up'
+                        createAttackingPositionNormal(arrayFigures2, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y && elem.position.x === position.x-i){
-                        arrayFigures3.push(elem)
-                        if(arrayFigures3.length === 2 && color === 'light'){
-                            arrayFigures3 = arrayFigures3.reverse();
-                        }
-                        
-                        if(arrayFigures3.length === 2 && arrayFigures3[1].whatPlaced.id === 'king' && color === 'light'){
-                            disableMoveFigure(arrayFigures3, boardArray, color);
-                        }else if(arrayFigures3.length === 2 && elem.whatPlaced.id === 'king' && color === 'dark'){
-                            disableMoveFigure(arrayFigures3, boardArray, color);
-                        }
+                        let direction = 'left'
+                        createAttackingPositionReverse(arrayFigures3, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y && elem.position.x === position.x+i){
-                        arrayFigures4.push(elem)
-                        if(elem.whatPlaced.id === 'king' && arrayFigures4.length === 2){
-                            disableMoveFigure(arrayFigures4, boardArray, color);
-                        }
+                        let direction = 'right'
+                        createAttackingPositionNormal(arrayFigures4, elem, color, boardArray, direction)
                     }
                 }
             }    
         }
     
         for(let elem of boardArray){
-            if(elem.hasAvaliableMove !== false && elem.hasAvaliableMove === 'toClean'){
+            if(elem.hasAvaliableAttackKing !== false && elem.hasAvaliableAttackKing === 'toClean'){
                 clearUnnessesaryCells(elem, position);
-                elem.hasAvaliableMove = true;
+                elem.hasAvaliableAttackKing = true;
             }
         }
     
@@ -137,7 +109,7 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
                     for(let u of boardArray){
                         if(( u.position.x < elem.position.x && u.position.y === elem.position.y) 
                             || ( u.position.y < elem.position.y && u.position.x === elem.position.x)){
-                                u.hasAvaliableMove = false;
+                                u.hasAvaliableAttackKing = false;
                         }
                     }
                 }else if((elem.position.x === position.x && (elem.position.y > position.y))
@@ -145,7 +117,7 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
                     for(let u of boardArray){
                         if(( u.position.x > elem.position.x && u.position.y === elem.position.y) 
                             || ( u.position.y > elem.position.y && u.position.x === elem.position.x)){
-                                u.hasAvaliableMove = false;
+                                u.hasAvaliableAttackKing = false;
                         }
                     }
                 }
@@ -162,59 +134,36 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
                 if(elem.whatPlaced === undefined 
                     && (elem.position.y === position.y-i || elem.position.y === position.y+i) 
                     && (elem.position.x === position.x-i || elem.position.x === position.x+i)){
-                        elem.hasAvaliableMove = true;
+                        elem.hasAvaliableAttackKing = true;
                 }
                 if(elem.whatPlaced !== undefined && elem.whatPlaced.color !== color){
+                    let direction;
                     if(elem.position.y === position.y-i && elem.position.x === position.x-i){
-                        arrayFigures1.push(elem)
-                        if(arrayFigures1.length === 2 && color === 'light'){
-                            arrayFigures1 = arrayFigures1.reverse();
-                        }
-                        
-                        if(arrayFigures1.length === 2 && arrayFigures1[1].whatPlaced.id === 'king' && color === 'light'){
-                            disableMoveFigure(arrayFigures1, boardArray, color);
-                        }else if(arrayFigures1.length === 2 && elem.whatPlaced.id === 'king' && color === 'dark'){
-                            disableMoveFigure(arrayFigures1, boardArray, color);
-                        }
-                        elem.hasAvaliableMove = 'toClean';
+                        direction = 'left up'
+                        createAttackingPositionReverse(arrayFigures1, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y-i && elem.position.x === position.x+i){
-                        arrayFigures2.push(elem)
-                        if(elem.whatPlaced.id === 'king' && arrayFigures2.length === 2){
-                            disableMoveFigure(arrayFigures2, boardArray, color);
-                        }
-                        elem.hasAvaliableMove = 'toClean';
+                        direction = 'right up'
+                        createAttackingPositionNormal(arrayFigures2, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y+i && elem.position.x === position.x-i){
-                        arrayFigures3.push(elem)
-                        if(arrayFigures3.length === 2 && color === 'light'){
-                            arrayFigures3 = arrayFigures3.reverse();
-                        }
-                        
-                        if(arrayFigures3.length === 2 && arrayFigures3[1].whatPlaced.id === 'king' && color === 'light'){
-                            disableMoveFigure(arrayFigures3, boardArray, color);
-                        }else if(arrayFigures3.length === 2 && elem.whatPlaced.id === 'king' && color === 'dark'){
-                            disableMoveFigure(arrayFigures3, boardArray, color);
-                        }
-                        elem.hasAvaliableMove = 'toClean';
+                        direction = 'right down'
+                        createAttackingPositionReverse(arrayFigures3, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y+i && elem.position.x === position.x+i){
-                        arrayFigures4.push(elem)
-                        if(elem.whatPlaced.id === 'king' && arrayFigures4.length === 2){
-                            disableMoveFigure(arrayFigures4, boardArray, color);
-                        }
-                        elem.hasAvaliableMove = 'toClean';
+                        direction = 'left down'
+                        createAttackingPositionNormal(arrayFigures4, elem, color, boardArray, direction)
                     }
                 }else if(elem.whatPlaced !== undefined 
                     && (elem.position.y === position.y-i || elem.position.y === position.y+i) 
                     && (elem.position.x === position.x-i || elem.position.x === position.x+i)
                     && elem.whatPlaced.color === color){
-                    elem.hasAvaliableMove = 'toClean';
+                    elem.hasAvaliableAttackKing = 'toClean';
                 }
             }    
         })
 
         for(let elem of boardArray){
-            if(elem.hasAvaliableMove !== false && elem.hasAvaliableMove === 'toClean'){
+            if(elem.hasAvaliableAttackKing !== false && elem.hasAvaliableAttackKing === 'toClean'){
                 clearUnnessesaryCells(elem, position);
-                elem.hasAvaliableMove = true;
+                elem.hasAvaliableAttackKing = true;
             }
         }
         
@@ -222,25 +171,25 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
             if(elem.position.x > position.x && elem.position.y > position.y){
                 for(let u of boardArray){
                     if(u.position.x > elem.position.x && u.position.y > elem.position.y){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }else if(elem.position.x < position.x && elem.position.y < position.y){
                 for(let u of boardArray){
                     if(u.position.x < elem.position.x && u.position.y < elem.position.y){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }else if(elem.position.x > position.x && elem.position.y < position.y){
                 for(let u of boardArray){
                     if(u.position.x > elem.position.x && u.position.y < elem.position.y){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }else if(elem.position.x < position.x && elem.position.y > position.y){
                 for(let u of boardArray){
                     if(u.position.x < elem.position.x && u.position.y > elem.position.y){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }
@@ -262,154 +211,112 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
                 || ((elem.position.x === position.x-i || elem.position.x === position.x+i) && elem.position.y === position.y)
     
                 if(elem.whatPlaced === undefined && moveHoristontalVertical){
-                    elem.hasAvaliableMove = true;
+                    elem.hasAvaliableAttackKing = true;
                 }
                 
                 if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color !== color){
+                    let direction;
                     if(elem.position.y === position.y+i && elem.position.x === position.x){
-                        arrayFigures1.push(elem)
-                        if(arrayFigures1.length === 2 && color === 'light'){
-                            arrayFigures1 = arrayFigures1.reverse();
-                        }
-                        
-                        if(arrayFigures1.length === 2 && arrayFigures1[1].whatPlaced.id === 'king' && color === 'light'){
-                            disableMoveFigure(arrayFigures1, boardArray, color);
-                        }else if(arrayFigures1.length === 2 && elem.whatPlaced.id === 'king' && color === 'dark'){
-                            disableMoveFigure(arrayFigures1, boardArray, color);
-                        }
+                        direction = 'down'
+                        createAttackingPositionReverse(arrayFigures1, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y-i && elem.position.x === position.x){
-                        arrayFigures2.push(elem)
-                        if(elem.whatPlaced.id === 'king' && arrayFigures2.length === 2){
-                            disableMoveFigure(arrayFigures2, boardArray, color);
-                        }
+                        direction = 'up'
+                        createAttackingPositionNormal(arrayFigures2, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y && elem.position.x === position.x+i){
-                        arrayFigures3.push(elem);
-                        if(arrayFigures3.length === 2 && color === 'light'){
-                            arrayFigures3 = arrayFigures3.reverse();
-                        }
-                        
-                        if(arrayFigures3.length === 2 && arrayFigures3[1].whatPlaced.id === 'king' && color === 'light'){
-                            disableMoveFigure(arrayFigures3, boardArray, color);
-                        }else if(arrayFigures3.length === 2 && elem.whatPlaced.id === 'king' && color === 'dark'){
-                            disableMoveFigure(arrayFigures3, boardArray, color);
-                        }
+                        direction = 'right'
+                        createAttackingPositionReverse(arrayFigures3, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y && elem.position.x === position.x-i){
-                        arrayFigures4.push(elem)
-                        if(elem.whatPlaced.id === 'king' && arrayFigures4.length === 2){
-                            disableMoveFigure(arrayFigures4, boardArray, color);
-                        }
+                        direction = 'left'
+                        createAttackingPositionNormal(arrayFigures4, elem, color, boardArray, direction)
                     }
-                    elem.hasAvaliableMove = 'toClean';
+                    elem.hasAvaliableAttackKing = 'toClean';
                 }else if(elem.whatPlaced !== undefined && moveHoristontalVertical && elem.whatPlaced.color === color){
-                    elem.hasAvaliableMove = 'toClean';
+                    elem.hasAvaliableAttackKing = 'toClean';
                 }
     
                 const moveDiagonal = (elem.position.y === position.y-i || elem.position.y === position.y+i) 
                                     && (elem.position.x === position.x-i || elem.position.x === position.x+i);
                 
                 if(elem.whatPlaced === undefined && moveDiagonal){
-                    elem.hasAvaliableMove = true;
+                    elem.hasAvaliableAttackKing = true;
                 }
                 
                 if(elem.whatPlaced !== undefined && moveDiagonal && elem.whatPlaced.color !== color){
+                    let direction;
                     if(elem.position.y === position.y-i && elem.position.x === position.x-i){
-                        arrayFigures5.push(elem)
-                        if(arrayFigures5.length === 2 && color === 'light'){
-                            arrayFigures5 = arrayFigures5.reverse();
-                        }
-                        
-                        if(arrayFigures5.length === 2 && arrayFigures5[1].whatPlaced.id === 'king' && color === 'light'){
-                            disableMoveFigure(arrayFigures5, boardArray, color);
-                        }else if(arrayFigures5.length === 2 && elem.whatPlaced.id === 'king' && color === 'dark'){
-                            disableMoveFigure(arrayFigures5, boardArray, color);
-                        }
-                        elem.hasAvaliableMove = 'toClean';
+                        direction = 'left down'
+                        createAttackingPositionReverse(arrayFigures5, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y-i && elem.position.x === position.x+i){
-                        arrayFigures6.push(elem)
-                        if(arrayFigures6.length === 2 && color === 'light'){
-                            arrayFigures6 = arrayFigures6.reverse();
-                        }
-                        
-                        if(arrayFigures6.length === 2 && arrayFigures6[1].whatPlaced.id === 'king' && color === 'light'){
-                            disableMoveFigure(arrayFigures6, boardArray, color);
-                        }else if(arrayFigures6.length === 2 && elem.whatPlaced.id === 'king' && color === 'dark'){
-                            disableMoveFigure(arrayFigures6, boardArray, color);
-                        }
-                        elem.hasAvaliableMove = 'toClean';
+                        direction = 'right down'
+                        createAttackingPositionNormal(arrayFigures6, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y+i && elem.position.x === position.x-i){
-                        arrayFigures7.push(elem)
-                        if(elem.whatPlaced.id === 'king' && arrayFigures7.length === 2){
-                            disableMoveFigure(arrayFigures7, boardArray, color);
-                        }
-                        elem.hasAvaliableMove = 'toClean';
+                        direction = 'right up'
+                        createAttackingPositionReverse(arrayFigures7, elem, color, boardArray, direction)
                     }else if(elem.position.y === position.y+i && elem.position.x === position.x+i){
-                        arrayFigures8.push(elem)
-                        if(elem.whatPlaced.id === 'king' && arrayFigures8.length === 2){
-                            disableMoveFigure(arrayFigures8, boardArray, color);
-                        }
-                        elem.hasAvaliableMove = 'toClean';
+                        direction = 'left up'
+                        createAttackingPositionNormal(arrayFigures8, elem, color, boardArray, direction)
                     }
+                    elem.hasAvaliableAttackKing = 'toClean';
                 }else if(elem.whatPlaced !== undefined && moveDiagonal && elem.whatPlaced.color === color){
-                    elem.hasAvaliableMove = 'toClean';
+                    elem.hasAvaliableAttackKing = 'toClean';
                 }
             }    
         })
     
         for(let elem of boardArray){
-            if(elem.hasAvaliableMove !== false && elem.hasAvaliableMove === 'toClean'){
+            if(elem.hasAvaliableAttackKing !== false && elem.hasAvaliableAttackKing === 'toClean'){
                 clearUnnessesaryCells(elem, position);
-                elem.hasAvaliableMove = true;
+                elem.hasAvaliableAttackKing = true;
             }
         }
-    
     
         function clearUnnessesaryCells(elem, position){
             if(elem.position.x > position.x && elem.position.y > position.y){
                 for(let u of boardArray){
                     if(u.position.x > elem.position.x && u.position.y > elem.position.y){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }else if(elem.position.x < position.x && elem.position.y < position.y){
                 for(let u of boardArray){
                     if(u.position.x < elem.position.x && u.position.y < elem.position.y){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }else if(elem.position.x > position.x && elem.position.y < position.y){
                 for(let u of boardArray){
                     if(u.position.x > elem.position.x && u.position.y < elem.position.y){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }else if(elem.position.x < position.x && elem.position.y > position.y){
                 for(let u of boardArray){
                     if(u.position.x < elem.position.x && u.position.y > elem.position.y){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }else if(position.x > elem.position.x && position.y === elem.position.y){
                 for(let u of boardArray){
                     if(u.position.x < elem.position.x && position.y === u.position.y){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }else if(position.x < elem.position.x && position.y === elem.position.y){
                 for(let u of boardArray){
                     if(u.position.x > elem.position.x && position.y === u.position.y){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }else if(position.y > elem.position.y && position.x === elem.position.x){
                 for(let u of boardArray){
                     if(u.position.y < elem.position.y && position.x === u.position.x){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }else if(position.y < elem.position.y && position.x === elem.position.x){
                 for(let u of boardArray){
                     if(u.position.y > elem.position.y && position.x === u.position.x){
-                        u.hasAvaliableMove = false;
+                        u.hasAvaliableAttackKing = false;
                     } 
                 }
             }
@@ -427,9 +334,9 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
                 || (elem.position.x === position.x-1 && elem.position.y === position.y+2)
                 || (elem.position.x === position.x+1 && elem.position.y === position.y-2)){
                     if(elem.whatPlaced === undefined){
-                        elem.hasAvaliableMove = true;
+                        elem.hasAvaliableAttackKing = true;
                     }else if(elem.whatPlaced !== undefined && elem.whatPlaced.color !== color && elem.whatPlaced.id !== 'king'){
-                        elem.hasAvaliableMove = true;
+                        elem.hasAvaliableAttackKing = true;
                     }
                 }
         }
@@ -444,12 +351,12 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
                     || elem.position.y === position.y-1
                     || elem.position.y === position.y)
                 && !(elem.position.x === position.x && elem.position.y === position.y)){
-                elem.hasAvaliableMove = true;
+                elem.hasAvaliableAttackKing = true;
             }
         }
     }
 
-    function disableMoveFigure(arrayFigures, boardArray, color){
+    function disableMoveFigure(arrayFigures, boardArray){
         let direction;
         let king;
         let figure;
@@ -480,6 +387,37 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
                 elem.whatPlaced.avaliableMoves = direction;
             }
         }
+    }
+
+    function createAttackingPositionReverse(array, elem, color, boardArray, direction){
+        array.push(elem)
+        
+        if(array.length === 2 && color === 'light'){
+            array = array.reverse();
+        }
+
+        if(elem.whatPlaced.id === 'king' 
+        && ((array[0].whatPlaced.id === 'king' && color === 'light') || color === 'dark')){
+            console.log("check", direction);
+        }
+        
+        if(array.length === 2 && array[1].whatPlaced.id === 'king' && color === 'light'){
+            disableMoveFigure(array, boardArray, color);
+        }else if(array.length === 2 && elem.whatPlaced.id === 'king' && color === 'dark'){
+            disableMoveFigure(array, boardArray, color);
+        }
+    }
+
+    function createAttackingPositionNormal(array, elem, color, boardArray, direction){
+        array.push(elem)
+
+        if(elem.whatPlaced.id === 'king' && array.length === 1){
+            console.log("check", direction);
+        }
+
+        if(elem.whatPlaced.id === 'king' && array.length === 2){
+            disableMoveFigure(array, boardArray, color);
+        }           
     }
 
     setBoardArray(boardArray.reverse())

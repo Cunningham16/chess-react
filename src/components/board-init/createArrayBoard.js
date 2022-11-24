@@ -114,7 +114,7 @@ export function createBoard(){
         position: setPosition(i),
         color: setColor(i-1),
         setDot: undefined,
-        hasAvaliableMove: false,
+        hasAvaliableAttackKing: false,
         avaliableMoves: undefined,
       }
     }
