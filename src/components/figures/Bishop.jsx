@@ -5,9 +5,9 @@ import { bishopMoveHints } from '../../figuresLogic/bishopMoveHints';
 import { isTurn } from '../../figuresLogic/setTurn';
 
 function setImageFigure(color){
-    if(color === 'dark'){
+    if(color === 'black'){
         return './img/Chess_bdt60.png';
-    }else if(color === 'light'){
+    }else if(color === 'white'){
         return './img/Chess_blt60.png';
     }
 }

@@ -5,9 +5,9 @@ import { rookMoveHints } from '../../figuresLogic/rookMoveHints';
 import { isTurn } from '../../figuresLogic/setTurn';
 
 function setImageFigure(color){
-    if(color === 'dark'){
+    if(color === 'black'){
         return './img/Chess_rdt60.png';
-    }else if(color === 'light'){
+    }else if(color === 'white'){
         return './img/Chess_rlt60.png';
     }
 }

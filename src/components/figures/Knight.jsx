@@ -5,9 +5,9 @@ import { knightMoveHints } from '../../figuresLogic/knightMoveHints';
 import { isTurn } from '../../figuresLogic/setTurn';
 
 function setImageFigure(color){
-    if(color === 'dark'){
+    if(color === 'black'){
         return './img/Chess_ndt60.png';
-    }else if(color === 'light'){
+    }else if(color === 'white'){
         return './img/Chess_nlt60.png';
     }
 }

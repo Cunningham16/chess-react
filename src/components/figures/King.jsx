@@ -6,9 +6,9 @@ import { isTurn } from '../../figuresLogic/setTurn';
 import { castlingHints } from '../../figuresLogic/castlingHints';
 
 function setImageFigure(color){
-    if(color === 'dark'){
+    if(color === 'black'){
         return './img/Chess_kdt60.png';
-    }else if(color === 'light'){
+    }else if(color === 'white'){
         return './img/Chess_klt60.png';
     }
 }
