@@ -27,38 +27,32 @@ function BoardSection({ objectBoard }) {
                 case 'pawn':
                     return(
                         <Pawn position={object.position} 
-                              color={object.whatPlaced.color} 
-                              figureObject = {object.whatPlaced}/>
+                              color={object.whatPlaced.color}/>
                     );
                 case 'bishop':
                     return(
                         <Bishop position={object.position} 
-                                color={object.whatPlaced.color} 
-                                figureObject = {object.whatPlaced}/>
+                                color={object.whatPlaced.color}/>
                     );
                 case 'knight':
                     return(
                         <Knight position={object.position} 
-                                color={object.whatPlaced.color} 
-                                figureObject = {object.whatPlaced}/>
+                                color={object.whatPlaced.color}/>
                     );
                 case 'rook':
                     return(
                         <Rook position={object.position} 
-                              color={object.whatPlaced.color} 
-                              figureObject = {object.whatPlaced}/>
+                              color={object.whatPlaced.color}/>
                     );
                 case 'queen':
                     return(
                         <Queen position={object.position} 
-                               color={object.whatPlaced.color} 
-                               figureObject = {object.whatPlaced}/>
+                               color={object.whatPlaced.color}/>
                     );
                 case 'king':
                     return(
                         <King position={object.position} 
-                              color={object.whatPlaced.color} 
-                              figureObject = {object.whatPlaced}/>
+                              color={object.whatPlaced.color}/>
                     );            
                 default:
                     break;

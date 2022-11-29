@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { BoardContext } from '../../context';
 import classes from './dot.module.css';
 import { changeTurn } from '../../figuresLogic/changeTurn';
+import { convertToEnginePosition } from '../../components/convertToEnginePos';
 
 function Dot(props) {   
     const {boardArray, 
@@ -10,7 +11,8 @@ function Dot(props) {
             appearHints, 
             setTurn, 
             fallenFiguresLight,
-            fallenFiguresDark} = useContext(BoardContext);
+            fallenFiguresDark, 
+            boardEngine} = useContext(BoardContext);
 
     function setFallenFigure(color, newPos){
         if(color === 'black'){
@@ -32,6 +34,7 @@ function Dot(props) {
                                 setFallenFigure(newPos.whatPlaced.color, newPos)
                             }
                             newPos.whatPlaced = figure;
+                            boardEngine.move(convertToEnginePosition(objectDot.figurePosition), convertToEnginePosition(objectDot.position))
                             changeTurn(newPos.position, setTurn, boardArray, setBoardArray);
                         }
                     }

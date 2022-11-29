@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { BoardContext } from '../../context';
 import classes from './figures.module.css';
-import { rookMoveHints } from '../../figuresLogic/rookMoveHints';
+import { setHintsToMove } from '../../figuresLogic/setHintsToMove';
 import { isTurn } from '../../figuresLogic/setTurn';
 
 function setImageFigure(color){
@@ -12,13 +12,13 @@ function setImageFigure(color){
     }
 }
 
-function Rook({ position, color, figureObject }) {
-    const {boardArray, appearHints, setHints, turn} = useContext(BoardContext);
+function Rook({ position, color }) {
+    const {boardArray, appearHints, setHints, turn, boardEngine} = useContext(BoardContext);
 
     return ( 
         <button className={classes.board_figure}
                 onClick={() => {
-                    rookMoveHints(position, boardArray, setHints, appearHints, figureObject);
+                    setHintsToMove(position, boardArray, setHints, appearHints, boardEngine);
                 }}
             disabled={isTurn(color, turn)}>
             <img src={setImageFigure(color)} alt="rook"/>

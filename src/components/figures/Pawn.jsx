@@ -2,7 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { BoardContext } from "../../context";
 import classes from './figures.module.css';
-import { pawnMoveHints } from '../../figuresLogic/pawnMoveHints';
+import { setHintsToMove } from '../../figuresLogic/setHintsToMove';
 import { isTurn } from '../../figuresLogic/setTurn';
 import PromotionPawn from '../../UI/promotionPawn/PromotionPawn';
 
@@ -14,8 +14,8 @@ function setImageFigure(color){
     }
 }
 
-function Pawn({ position, color, figureObject }) {
-    const {boardArray, appearHints, setHints, turn} = useContext(BoardContext);
+function Pawn({ position, color }) {
+    const {boardArray, appearHints, setHints, turn, boardEngine} = useContext(BoardContext);
 
     function promotePawn(){
         if(position.y === 7 && color === 'black'){
@@ -28,7 +28,7 @@ function Pawn({ position, color, figureObject }) {
     return ( 
         <button className={classes.board_figure}
                onClick={() => {
-                    pawnMoveHints(position, boardArray, setHints, appearHints, figureObject);
+                    setHintsToMove(position, boardArray, setHints, appearHints, boardEngine);
                }}
                disabled={isTurn(color, turn)}>
             {promotePawn()}

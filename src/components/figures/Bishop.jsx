@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { BoardContext } from '../../context';
 import classes from './figures.module.css';
-import { bishopMoveHints } from '../../figuresLogic/bishopMoveHints';
+import { setHintsToMove } from '../../figuresLogic/setHintsToMove';
 import { isTurn } from '../../figuresLogic/setTurn';
 
 function setImageFigure(color){
@@ -12,13 +12,13 @@ function setImageFigure(color){
     }
 }
 
-function Bishop({ position, color, figureObject }) {
-    const {boardArray, setHints, appearHints, turn} = useContext(BoardContext);
+function Bishop({ position, color }) {
+    const {boardArray, setHints, appearHints, turn, boardEngine} = useContext(BoardContext);
 
     return ( 
         <button className={classes.board_figure}
                 onClick={() => {
-                    bishopMoveHints(position, boardArray, setHints, appearHints, figureObject);
+                    setHintsToMove(position, boardArray, setHints, appearHints, boardEngine);
                 }}
                 disabled={isTurn(color, turn)}>
             <img src={setImageFigure(color)} alt="bishop" />

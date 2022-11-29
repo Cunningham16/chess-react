@@ -1,44 +1,48 @@
 //position: string
 export function convertToAppPosition(position){
+    let object;
+
     if(position[0] === 'A'){
-        return {
+        object = {
             x: 0,
-            y: position[1],
+            y: position[1]-1,
         }
     }else if(position[0] === 'B'){
-        return {
+        object = {
             x: 1,
-            y: position[1],
+            y: position[1]-1,
         }
     }else if(position[0] === 'C'){
-        return {
+        object = {
             x: 2,
-            y: position[1],
+            y: position[1]-1,
         }
     }else if(position[0] === 'D'){
-        return {
+        object = {
             x: 3,
-            y: position[1],
+            y: position[1]-1,
         }
     }else if(position[0] === 'E'){
-        return {
+        object = {
             x: 4,
-            y: position[1],
+            y: position[1]-1,
         }
     }else if(position[0] === 'F'){
-        return {
+        object = {
             x: 5,
-            y: position[1],
+            y: position[1]-1,
         }
     }else if(position[0] === 'G'){
-        return {
+        object = {
             x: 6,
-            y: position[1],
+            y: position[1]-1,
         }
     }else if(position[0] === 'H'){
-        return {
+        object = {
             x: 7,
-            y: position[1],
+            y: position[1]-1,
         }
     }
+    
+    return object
 }

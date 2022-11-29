@@ -18,6 +18,7 @@ function PlayWithFriend() {
       status: false,
       color: undefined
     })
+    
     const [isRetry, setIsRetry] = useState(false);
     const contextObject = {
       fallenFiguresLight, 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { BoardContext } from '../../context';
 import classes from './figures.module.css';
-import { queenMoveHints } from '../../figuresLogic/queenMoveHints';
+import { setHintsToMove } from '../../figuresLogic/setHintsToMove';
 import { isTurn } from '../../figuresLogic/setTurn';
 
 function setImageFigure(color){
@@ -12,14 +12,14 @@ function setImageFigure(color){
     }
 }
 
-function Queen({ position, color, figureObject }) {
-    const {boardArray, appearHints, setHints, turn} = useContext(BoardContext);
+function Queen({ position, color }) {
+    const {boardArray, appearHints, setHints, turn, boardEngine} = useContext(BoardContext);
 
     return ( 
         <button className={classes.board_figure}
                 onClick={() => {
-                    queenMoveHints(position, boardArray, setHints, appearHints, color, figureObject);
-                }}
+                    setHintsToMove(position, boardArray, setHints, appearHints, boardEngine);
+               }}
                 disabled={isTurn(color, turn)}>
             <img src={setImageFigure(color)} alt="queen"/>
         </button>

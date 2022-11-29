@@ -2,7 +2,7 @@ export function castlingHints(boardArray, setHints, appearHints, turn){
     
     for(let elem of boardArray){
         if(elem.whatPlaced !== undefined && elem.whatPlaced.id === 'king'){
-            hintsToMove(elem, elem.position, turn);
+            //hintsToMove(elem, elem.position, turn);
         }
     }
 
