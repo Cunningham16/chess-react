@@ -10,9 +10,9 @@ import Rook from '../../components/figures/Rook';
 import classes from './boardSection.module.css';
 
 function colorSection(color){
-    if(color === "dark"){
+    if(color === "black"){
         return classes.dark;
-    }else if(color === "light"){
+    }else if(color === "white"){
         return classes.light;
     }
 }

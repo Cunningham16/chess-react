@@ -4,7 +4,7 @@ import { BoardContext } from '../../context';
 import classes from './PromotionPawn.module.css';
 
 function setImageFigure(color){
-    if(color === 'dark'){
+    if(color === 'black'){
         const arr = [
             './img/Chess_qdt60.png',
             './img/Chess_rdt60.png',
@@ -12,7 +12,7 @@ function setImageFigure(color){
             './img/Chess_ndt60.png'
         ]
         return arr;
-    }else if(color === 'light'){
+    }else if(color === 'white'){
         const arr = [
             './img/Chess_qlt60.png',
             './img/Chess_rlt60.png',

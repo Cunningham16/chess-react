@@ -13,9 +13,9 @@ function Dot(props) {
             fallenFiguresDark} = useContext(BoardContext);
 
     function setFallenFigure(color, newPos){
-        if(color === 'dark'){
+        if(color === 'black'){
             fallenFiguresDark.push(newPos.whatPlaced);
-        }else if( color === 'light'){
+        }else if( color === 'white'){
             fallenFiguresLight.push(newPos.whatPlaced);
         }
     }

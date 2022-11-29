@@ -16,9 +16,9 @@ export function castlingHints(boardArray, setHints, appearHints, turn){
                     let findPositionCastling = kingPos.position.x === elem1.position.x-2 && elem1.whatPlaced === undefined && kingPos.position.y === elem1.position.y;
 
                     if(findPositionCastling && kingPos.whatPlaced.color === turn){
-                        if(turn === 'light'){
+                        if(turn === 'white'){
                             verifyCastlingShortWhite(kingPos, elem1, elem.position, position, boardArray);
-                        }else if(turn === 'dark'){
+                        }else if(turn === 'black'){
                             verifyCastlingShortBlack(kingPos, elem1, elem.position, position, boardArray);
                         }
                     }
@@ -33,9 +33,9 @@ export function castlingHints(boardArray, setHints, appearHints, turn){
                     let findPositionCastling = kingPos.position.x === elem1.position.x+2 && elem1.whatPlaced === undefined && kingPos.position.y === elem1.position.y;
 
                     if(findPositionCastling && kingPos.whatPlaced.color === turn){
-                        if(turn === 'light'){
+                        if(turn === 'white'){
                             verifyCastlingLongWhite(kingPos, elem1, elem.position, position, boardArray);
-                        }else if(turn === 'dark'){
+                        }else if(turn === 'black'){
                             verifyCastlingLongBlack(kingPos, elem1, elem.position, position, boardArray);
                         }
                     }

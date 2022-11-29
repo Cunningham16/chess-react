@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Game, move, status, moves, aiMove, getFen } from 'js-chess-engine'
 import Board from "../Board";
 import PlayerInfo from "../PlayerInfo";
 import { BoardContext } from '../../context';
@@ -6,7 +7,8 @@ import GameOverPopUp from '../GameOverPopUp';
 import { createBoard } from '../board-init/createArrayBoard';
 
 function PlayWithFriend(props) {
-    const [turn, setTurn] = useState('light');
+    const [boardEngine, setBoardEngine] = useState(new Game())
+    const [turn, setTurn] = useState('white');
     const [boardArray, setBoardArray] = useState(createBoard())
     const [appearHints, setHints] = useState();
     const [fallenFiguresLight, setFallenFiguresLight] = useState([]);
@@ -63,20 +65,20 @@ function PlayWithFriend(props) {
       setHints()
       setIsRetry(false)
 
-      if(turn === 'dark'){
+      if(turn === 'black'){
         const boardContainer = document.querySelector('.board-game');
         boardContainer.style.flexDirection = 'column';
       }
-      setTurn('light')
+      setTurn('white')
     }, [isRetry])
 
     return ( 
         <div className='board-game'>
             <BoardContext.Provider value={contextObject}>
               {setPopup()}
-              <PlayerInfo color = 'dark'/>
+              <PlayerInfo color = 'black'/>
               <Board />
-              <PlayerInfo color = 'light'/>
+              <PlayerInfo color = 'white'/>
             </BoardContext.Provider>
         </div>
     );

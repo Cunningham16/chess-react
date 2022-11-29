@@ -47,16 +47,16 @@ function Timer({ color }) {
     }, [isRetry])
 
     function setColorTimer(color){
-        if(color === 'dark'){
-            if(turn === 'dark'){
+        if(color === 'black'){
+            if(turn === 'black'){
                 return `${classes.dark} ${classes.dark_active}`;
-            }else if(turn === 'light'){
+            }else if(turn === 'white'){
                 return classes.dark;
             }
-        }else if(color === 'light'){
-            if(turn === 'light'){
+        }else if(color === 'white'){
+            if(turn === 'white'){
                 return `${classes.light} ${classes.light_active}`;
-            }else if (turn === 'dark'){
+            }else if (turn === 'black'){
                 return classes.light;
             }
         }

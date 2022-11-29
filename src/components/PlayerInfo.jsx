@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useContext } from 'react';
 import { BoardContext } from '../context';
 import Timer from '../UI/timer/Timer';
@@ -8,9 +7,9 @@ function PlayerInfo({ color }) {
     const {fallenFiguresLight, fallenFiguresDark} = useContext(BoardContext);
 
     function setColor(color){
-        if(color === 'dark'){
+        if(color === 'black'){
             return 'Black';
-        }else if(color === 'light'){
+        }else if(color === 'white'){
             return 'White';
         }
     }
@@ -44,9 +43,9 @@ function PlayerInfo({ color }) {
     }
 
     function setFigures(objectFigure){
-        if (color !== objectFigure.color && color === 'dark') {
+        if (color !== objectFigure.color && color === 'black') {
             return setImgLight(objectFigure.id)
-        }else if (color !== objectFigure.color && color === 'light'){
+        }else if (color !== objectFigure.color && color === 'white'){
             return setImgDark(objectFigure.id)
         }
     }
@@ -58,7 +57,7 @@ function PlayerInfo({ color }) {
                 <div className="info">
                     <p className="name">{setColor(color)}</p>
                     <div className="fallen-figures">
-                        {color === 'dark' ?
+                        {color === 'black' ?
                         fallenFiguresLight.map(elem =>
                             <img src={setFigures(elem)} alt="" /> 
                         )

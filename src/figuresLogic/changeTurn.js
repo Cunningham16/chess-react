@@ -6,13 +6,13 @@ export function changeTurn(position, setTurn, boardArray, setBoardArray){
     for(let elem of boardArray){
         if(elem.position === position && elem.whatPlaced !== undefined){
             let color = elem.whatPlaced.color;
-            if(color === 'light'){
-                setTurn('dark')
-                verifyCheckKing(boardArray, 'light', setBoardArray)
+            if(color === 'white'){
+                setTurn('black')
+                verifyCheckKing(boardArray, 'white', setBoardArray)
                 boardContainer.style.flexDirection = 'column-reverse';
-            }else if(color === 'dark'){
-                setTurn('light')
-                verifyCheckKing(boardArray, 'dark', setBoardArray);
+            }else if(color === 'black'){
+                setTurn('white')
+                verifyCheckKing(boardArray, 'black', setBoardArray);
                 boardContainer.style.flexDirection = 'column';
             }
         }    

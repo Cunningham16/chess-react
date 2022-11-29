@@ -12,17 +12,17 @@ function GameOverPopUp({ message, whoWins }) {
     }
 
     function whoWinsLog(whoWins){
-        if(whoWins === 'light'){
+        if(whoWins === 'white'){
             return 'Black'
-        }else if(whoWins === 'dark'){
+        }else if(whoWins === 'black'){
             return 'White'
         }
     }
 
     function setCount(whoWins){
-        if(whoWins === 'dark'){
+        if(whoWins === 'black'){
             return '1:0'
-        }else if(whoWins === 'light'){
+        }else if(whoWins === 'white'){
             return '0:1'
         }
     }

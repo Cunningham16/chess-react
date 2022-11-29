@@ -46,12 +46,16 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
             let moveDiagonal = elem.position.x === position.x-1 || elem.position.x === position.x+1;
 
             let attackPawnBlack = moveDiagonal && elem.position.y === position.y+1;
-            let pawnAttackBlack = color === 'dark' && attackPawnBlack;
+            let pawnAttackBlack = color === 'black' && attackPawnBlack;
             
             let attackPawnWhite = moveDiagonal && elem.position.y === position.y-1;
-            let pawnAttackWhite = color === 'light' && attackPawnWhite;
+            let pawnAttackWhite = color === 'white' && attackPawnWhite;
 
             if(pawnAttackWhite || pawnAttackBlack){
+                if(elem.whatPlaced !== undefined && elem.whatPlaced.id === 'king' && elem.whatPlaced.color !== color){
+                    console.log(elem, position)
+                }
+
                 elem.hasAvaliableAttackKing = true;
             }
         }
@@ -98,6 +102,9 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
     
         for(let elem of boardArray){
             if(elem.hasAvaliableAttackKing !== false && elem.hasAvaliableAttackKing === 'toClean'){
+                if(elem.whatPlaced.id === 'king' && elem.whatPlaced.color !== color){
+                    console.log(true)
+                }
                 clearUnnessesaryCells(elem, position);
                 elem.hasAvaliableAttackKing = true;
             }
@@ -136,6 +143,7 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
                     && (elem.position.x === position.x-i || elem.position.x === position.x+i)){
                         elem.hasAvaliableAttackKing = true;
                 }
+
                 if(elem.whatPlaced !== undefined && elem.whatPlaced.color !== color){
                     let direction;
                     if(elem.position.y === position.y-i && elem.position.x === position.x-i){
@@ -162,6 +170,9 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
 
         for(let elem of boardArray){
             if(elem.hasAvaliableAttackKing !== false && elem.hasAvaliableAttackKing === 'toClean'){
+                if(elem.whatPlaced.id === 'king' && elem.whatPlaced.color !== color){
+                    console.log(true)
+                }
                 clearUnnessesaryCells(elem, position);
                 elem.hasAvaliableAttackKing = true;
             }
@@ -265,12 +276,20 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
     
         for(let elem of boardArray){
             if(elem.hasAvaliableAttackKing !== false && elem.hasAvaliableAttackKing === 'toClean'){
+                if(elem.whatPlaced.id === 'king' && elem.whatPlaced.color !== color){
+                    console.log(true)
+                }
                 clearUnnessesaryCells(elem, position);
                 elem.hasAvaliableAttackKing = true;
             }
         }
     
         function clearUnnessesaryCells(elem, position){
+            for(let k of boardArray){
+                if(k.position === position){
+                    k.hasAvaliableAttackKing = false;
+                }
+            }
             if(elem.position.x > position.x && elem.position.y > position.y){
                 for(let u of boardArray){
                     if(u.position.x > elem.position.x && u.position.y > elem.position.y){
@@ -389,31 +408,22 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
         }
     }
 
-    function createAttackingPositionReverse(array, elem, color, boardArray, direction){
+    function createAttackingPositionReverse(array, elem, color, boardArray){
         array.push(elem)
         
-        if(array.length === 2 && color === 'light'){
+        if(array.length === 2 && color === 'white'){
             array = array.reverse();
         }
-
-        if(elem.whatPlaced.id === 'king' 
-        && ((array[0].whatPlaced.id === 'king' && color === 'light') || color === 'dark')){
-            console.log("check", direction);
-        }
         
-        if(array.length === 2 && array[1].whatPlaced.id === 'king' && color === 'light'){
+        if(array.length === 2 && array[1].whatPlaced.id === 'king' && color === 'white'){
             disableMoveFigure(array, boardArray, color);
-        }else if(array.length === 2 && elem.whatPlaced.id === 'king' && color === 'dark'){
+        }else if(array.length === 2 && elem.whatPlaced.id === 'king' && color === 'black'){
             disableMoveFigure(array, boardArray, color);
         }
     }
 
-    function createAttackingPositionNormal(array, elem, color, boardArray, direction){
+    function createAttackingPositionNormal(array, elem, color, boardArray){
         array.push(elem)
-
-        if(elem.whatPlaced.id === 'king' && array.length === 1){
-            console.log("check", direction);
-        }
 
         if(elem.whatPlaced.id === 'king' && array.length === 2){
             disableMoveFigure(array, boardArray, color);
@@ -421,4 +431,8 @@ export function verifyCheckKing(boardArray, color, setBoardArray){
     }
 
     setBoardArray(boardArray.reverse())
+}
+
+function setCheck(king, position, boardArray){
+    
 }
