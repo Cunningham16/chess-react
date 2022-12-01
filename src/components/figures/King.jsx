@@ -21,7 +21,6 @@ function King({ position, color }) {
                 onClick={() => {
                     setHintsToMove(position, boardArray, setHints, appearHints, boardEngine);
                     castlingHints(boardArray, setHints, appearHints, turn)
-                    console.log(boardEngine)
                 }}
                 disabled={isTurn(color, turn)}>
             <img src={setImageFigure(color)} alt=""/>

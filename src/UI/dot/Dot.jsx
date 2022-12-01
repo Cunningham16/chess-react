@@ -71,6 +71,7 @@ function Dot(props) {
             for(let newPos of boardArray){
                 if(newPos.position === objectDot.position){
                     newPos.whatPlaced = king.whatPlaced;
+                    boardEngine.move(convertToEnginePosition(objectDot.kingPosition), convertToEnginePosition(objectDot.position))
                     changeTurn(newPos.position, setTurn, boardArray, setBoardArray);
                 }
             } 

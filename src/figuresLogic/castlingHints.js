@@ -1,8 +1,8 @@
-export function castlingHints(boardArray, setHints, appearHints, turn){
+export function castlingHints(boardArray, setHints, appearHints, turn, board){
     
     for(let elem of boardArray){
         if(elem.whatPlaced !== undefined && elem.whatPlaced.id === 'king'){
-            //hintsToMove(elem, elem.position, turn);
+            hintsToMove(elem, elem.position, turn);
         }
     }
 
