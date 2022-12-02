@@ -8,18 +8,18 @@ import { createBoard } from '../board-init/createArrayBoard';
 
 function PlayWithFriend() {
     const [boardEngine, setBoardEngine] = useState(new Game())
-    const [turn, setTurn] = useState('white');
+    const [turn, setTurn] = useState('white')
     const [boardArray, setBoardArray] = useState(createBoard())
-    const [appearHints, setHints] = useState();
-    const [fallenFiguresLight, setFallenFiguresLight] = useState([]);
-    const [fallenFiguresDark, setFallenFiguresDark] = useState([]);
+    const [appearHints, setHints] = useState()
+    const [fallenFiguresLight, setFallenFiguresLight] = useState([])
+    const [fallenFiguresDark, setFallenFiguresDark] = useState([])
     const [isEndCase, setIsEndCase] = useState({
       type: undefined,
       status: false,
       color: undefined
     })
-    
-    const [isRetry, setIsRetry] = useState(false);
+    const [isPromote, setIsPromote] = useState(false)
+    const [isRetry, setIsRetry] = useState(false)
     const contextObject = {
       fallenFiguresLight, 
       setFallenFiguresLight,
@@ -37,6 +37,8 @@ function PlayWithFriend() {
       setIsRetry,
       boardEngine, 
       setBoardEngine,
+      isPromote,
+      setIsPromote
     }
 
     function setPopup(){

@@ -34,7 +34,8 @@ function Dot(props) {
                                 setFallenFigure(newPos.whatPlaced.color, newPos)
                             }
                             newPos.whatPlaced = figure;
-                            boardEngine.move(convertToEnginePosition(objectDot.figurePosition), convertToEnginePosition(objectDot.position))
+                            boardEngine.move(convertToEnginePosition(objectDot.figurePosition), 
+                                             convertToEnginePosition(objectDot.position))
                             changeTurn(newPos.position, setTurn, boardArray, setBoardArray);
                         }
                     }
@@ -87,6 +88,7 @@ function Dot(props) {
         for(let elem of boardArray){
             elem.setDot = undefined;
         }
+        
         setHints(!appearHints)
     }
 

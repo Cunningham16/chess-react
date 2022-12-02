@@ -4,7 +4,6 @@ import { BoardContext } from "../../context";
 import classes from './figures.module.css';
 import { setHintsToMove } from '../../figuresLogic/setHintsToMove';
 import { isTurn } from '../../figuresLogic/setTurn';
-import PromotionPawn from '../../UI/promotionPawn/PromotionPawn';
 
 function setImageFigure(color){
     if(color === 'black'){
@@ -18,10 +17,13 @@ function Pawn({ position, color }) {
     const {boardArray, appearHints, setHints, turn, boardEngine} = useContext(BoardContext);
 
     function promotePawn(){
-        if(position.y === 7 && color === 'black'){
-            return <PromotionPawn color='black' position = {position}/>
-        }else if(position.y === 0 && color === 'white'){
-            return <PromotionPawn color='white' position = {position}/>
+        if(position.y === 0 || position.y === 7){
+            for(let elem of boardArray){
+                if(position === elem.position){
+                    elem.whatPlaced = {color: color, id: 'queen'}
+                    setHints(!appearHints)
+                }
+            }
         }
     }
 

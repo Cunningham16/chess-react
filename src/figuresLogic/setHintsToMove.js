@@ -7,7 +7,6 @@ export function setHintsToMove(position, boardArray, setHints, appearHints, boar
     }
 
     const possibleMoves = boardEngine.moves(convertToEnginePosition(position))
-    console.log(boardEngine.board)
 
     for(let elem of boardArray){
         for(let pos of possibleMoves){
