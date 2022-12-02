@@ -43,9 +43,22 @@ function PlayWithFriend() {
 
     function setPopup(){
       if(isEndCase.status === true && isEndCase.type === 'timeOut'){
-        return <GameOverPopUp message={'Time is out'} whoWins={isEndCase.color} />
+        return <GameOverPopUp message={'Time is out'} whoLose={isEndCase.color} />
+      }else if(isEndCase.status === true && isEndCase.type === 'checkmate'){
+        return <GameOverPopUp message={'Checkmate'} whoLose={isEndCase.color} />
       }
     }
+
+    useEffect(() => {
+      if(boardEngine.board.configuration.checkMate === true){
+          setIsEndCase({
+              status: true,
+              type: 'checkmate',
+              color: turn,
+          })
+      }
+      console.log('ok')
+    }, [boardEngine.board.configuration.checkMate])
 
     useEffect(() => {
       setPopup();
@@ -73,6 +86,9 @@ function PlayWithFriend() {
         const boardContainer = document.querySelector('.board-game');
         boardContainer.style.flexDirection = 'column';
       }
+
+      setBoardEngine(new Game())
+
       setTurn('white')
     }, [isRetry])
 

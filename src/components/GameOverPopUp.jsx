@@ -4,25 +4,25 @@ import { BoardContext } from '../context';
 import '../styles/gameOverPopUp.css';
 import { Link } from 'react-router-dom';
 
-function GameOverPopUp({ message, whoWins }) {
+function GameOverPopUp({ message, whoLose }) {
     const {setIsRetry} = useContext(BoardContext);
 
     function clearBoard(){
         setIsRetry(true)
     }
 
-    function whoWinsLog(whoWins){
-        if(whoWins === 'white'){
+    function whoWinsLog(whoLose){
+        if(whoLose === 'white'){
             return 'Black'
-        }else if(whoWins === 'black'){
+        }else if(whoLose === 'black'){
             return 'White'
         }
     }
 
-    function setCount(whoWins){
-        if(whoWins === 'black'){
+    function setCount(whoLose){
+        if(whoLose === 'black'){
             return '1:0'
-        }else if(whoWins === 'white'){
+        }else if(whoLose === 'white'){
             return '0:1'
         }
     }
@@ -31,7 +31,7 @@ function GameOverPopUp({ message, whoWins }) {
         <section className='popup'>
             <div className="popup__content">
                 <div className="popup__header">
-                    <h3>Game Over! {whoWinsLog(whoWins)} win this battle!</h3>
+                    <h3>Game Over! {whoWinsLog(whoLose)} win this battle!</h3>
                     <h4>{message}</h4>
                 </div>
                 <div className="popup__winner-log">
@@ -39,7 +39,7 @@ function GameOverPopUp({ message, whoWins }) {
                         <img src="./img/user-image.svg" alt="" />
                         <h5>White</h5>
                     </div>
-                    <p>{setCount(whoWins)}</p>
+                    <p>{setCount(whoLose)}</p>
                     <div className="winner-log">
                         <img src="./img/user-image.svg" alt="" />
                         <h5>Black</h5>

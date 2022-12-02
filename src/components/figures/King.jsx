@@ -4,6 +4,8 @@ import classes from './figures.module.css';
 import { setHintsToMove } from '../../figuresLogic/setHintsToMove';
 import { isTurn } from '../../figuresLogic/setTurn';
 import { castlingHints } from '../../figuresLogic/castlingHints';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function setImageFigure(color){
     if(color === 'black'){
@@ -14,7 +16,7 @@ function setImageFigure(color){
 }
 
 function King({ position, color }) {
-    const {boardArray, appearHints, setHints, turn, boardEngine} = useContext(BoardContext);
+    const {boardArray, appearHints, setHints, turn, boardEngine, setIsEndCase} = useContext(BoardContext); 
 
     return ( 
         <button className={classes.board_figure}

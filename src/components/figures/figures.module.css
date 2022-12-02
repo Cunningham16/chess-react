@@ -19,3 +19,7 @@
 .board_figure:disabled{
     cursor: inherit;
 }
+
+.check{
+    background-color: brown;
+}
