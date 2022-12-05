@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { BoardContext } from '../context';
 import Timer from '../UI/timer/Timer';
 
-function PlayerInfo({ color }) {
+function PlayerInfo({ color, isPlayWithAI }) {
     const {fallenFiguresLight, fallenFiguresDark} = useContext(BoardContext);
 
     function setColor(color){
@@ -67,7 +67,7 @@ function PlayerInfo({ color }) {
                     </div>
                 </div>
             </div>
-            <Timer color = {color}/>
+            {!isPlayWithAI && <Timer color = {color}/>}
         </div>
     );
 }

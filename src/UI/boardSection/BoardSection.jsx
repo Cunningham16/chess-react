@@ -17,7 +17,7 @@ function colorSection(color){
     }
 }
 
-function BoardSection({ objectBoard }) { 
+function BoardSection({ objectBoard, isPlayWithAI }) { 
     const {appearHints} = useContext(BoardContext);
 
     function declare(object){
@@ -63,7 +63,7 @@ function BoardSection({ objectBoard }) {
     function declareHints(object){
         if(object.setDot !== undefined){
             return (
-                <Dot objectDot = {object.setDot}/>
+                <Dot objectDot = {object.setDot} isPlayWithAI = {isPlayWithAI}/>
             );
         }
     }

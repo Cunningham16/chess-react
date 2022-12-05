@@ -4,7 +4,7 @@ import classes from './dot.module.css';
 import { changeTurn } from '../../figuresLogic/changeTurn';
 import { convertToEnginePosition } from '../../components/convertToEnginePos';
 
-function Dot(props) {   
+function Dot({ objectDot, children, isPlayWithAI }) {   
     const {boardArray, 
             setBoardArray,
             setHints, 
@@ -12,7 +12,8 @@ function Dot(props) {
             setTurn, 
             fallenFiguresLight,
             fallenFiguresDark, 
-            boardEngine} = useContext(BoardContext);
+            boardEngine,
+            setIsPlayerMadeMove} = useContext(BoardContext);
 
     function setFallenFigure(color, newPos){
         if(color === 'black'){
@@ -36,7 +37,11 @@ function Dot(props) {
                             newPos.whatPlaced = figure;
                             boardEngine.move(convertToEnginePosition(objectDot.figurePosition), 
                                              convertToEnginePosition(objectDot.position))
-                            changeTurn(newPos.position, setTurn, boardArray, setBoardArray);
+                            if(isPlayWithAI === false || isPlayWithAI === undefined){
+                                changeTurn(newPos.position, setTurn, boardArray, setBoardArray)
+                            }else{
+                                setIsPlayerMadeMove(true)
+                            }
                         }
                     }
                 }
@@ -108,12 +113,14 @@ function Dot(props) {
     }
 
     return ( 
-        <button className={setTypeHint(props.objectDot.type)}
+        <button className={setTypeHint(objectDot.type)}
                 onClick={() => {
-                    moveFigure(props.objectDot);
-                    boardArray.reverse()
+                    moveFigure(objectDot);
+                    if(isPlayWithAI === false || isPlayWithAI === undefined){
+                        boardArray.reverse()
+                    }
                 }}>
-            {props.children}
+            {children}
         </button>
      );
 }

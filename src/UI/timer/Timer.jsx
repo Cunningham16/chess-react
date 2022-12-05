@@ -1,7 +1,4 @@
-import React from 'react';
-import { useContext } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BoardContext } from '../../context';
 import classes from './Timer.module.css';
 
@@ -17,7 +14,7 @@ function convertTime(time){
 
 function Timer({ color }) {
     const {turn, setIsEndCase, isRetry, isEndCase} = useContext(BoardContext);
-    const [time, setTime] = useState(10);
+    const [time, setTime] = useState(600);
     const [isStart, setIsStart] = useState(true) 
 
     useEffect(() => {

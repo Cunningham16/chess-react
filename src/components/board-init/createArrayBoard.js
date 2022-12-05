@@ -35,11 +35,11 @@ const arrayFigures = [
   {position: 1, color: 'white', id: 'rook'},
   {position: 8, color: 'white', id: 'rook'},
 
-  {position: 60, color: 'black', id: 'queen'},
-  {position: 4, color: 'white', id: 'queen'},
+  {position: 61, color: 'black', id: 'queen'},
+  {position: 5, color: 'white', id: 'queen'},
 
-  {position: 61, color: 'black', id: 'king'},
-  {position: 5, color: 'white', id: 'king'},
+  {position: 60, color: 'black', id: 'king'},
+  {position: 4, color: 'white', id: 'king'},
 ]
 
 export function createBoard(){
