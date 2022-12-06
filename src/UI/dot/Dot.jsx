@@ -77,8 +77,12 @@ function Dot({ objectDot, children, isPlayWithAI }) {
             for(let newPos of boardArray){
                 if(newPos.position === objectDot.position){
                     newPos.whatPlaced = king.whatPlaced;
+                    if(isPlayWithAI === false || isPlayWithAI === undefined){
+                        changeTurn(newPos.position, setTurn, boardArray, setBoardArray)
+                    }else{
+                        setIsPlayerMadeMove(true)
+                    }
                     boardEngine.move(convertToEnginePosition(objectDot.kingPosition), convertToEnginePosition(objectDot.position))
-                    changeTurn(newPos.position, setTurn, boardArray, setBoardArray);
                 }
             } 
 

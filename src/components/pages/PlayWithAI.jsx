@@ -56,6 +56,7 @@ function PlayWithAI(props) {
 
     useEffect(() => {
       if(isPlayerMadeMove === true){
+        console.log('count')
         setTimeout(() => {
           makeMoveAI(boardEngine.aiMove(0))
         }, 700)
@@ -69,13 +70,64 @@ function PlayWithAI(props) {
           fallenFiguresLight.push(newPos.whatPlaced);
       }
     }
-
+    
     function makeMoveAI(moveAI){
       for(let move in moveAI){
         let from = convertToAppPosition(move)
         let to = convertToAppPosition(moveAI[move])
         for(let elem of boardArray){
           if(elem.position.x === from.x && elem.position.y === from.y){
+            if(elem.whatPlaced.id === 'king'){
+              if(to.x === 1 && to.y === 0){
+                for(let y of boardArray){
+                  if(y.position.x === 0 && y.position.y === 0){
+                    let rook = y.whatPlaced
+                    y.whatPlaced = undefined
+                    for(let x of boardArray){
+                      if(x.position.x === 2 && x.position.y === 0){
+                        x.whatPlaced = rook
+                      }
+                    }
+                  }
+                }
+              }else if(to.x === 5 && to.y === 0){
+                for(let y of boardArray){
+                  if(y.position.x === 7 && y.position.y === 0){
+                    let rook = y.whatPlaced
+                    y.whatPlaced = undefined
+                    for(let x of boardArray){
+                      if(x.position.x === 4 && x.position.y === 0){
+                        x.whatPlaced = rook
+                      }
+                    }
+                  }
+                }
+              }else if(to.x === 6 && to.y === 7){
+                for(let y of boardArray){
+                  if(y.position.x === 7 && y.position.y === 7){
+                    let rook = y.whatPlaced
+                    y.whatPlaced = undefined
+                    for(let x of boardArray){
+                      if(x.position.x === 5 && x.position.y === 7){
+                        x.whatPlaced = rook
+                      }
+                    }
+                  }
+                }
+              }else if(to.x === 5 && to.y === 7){
+                for(let y of boardArray){
+                  if(y.position.x === 0 && y.position.y === 7){
+                    let rook = y.whatPlaced
+                    y.whatPlaced = undefined
+                    for(let x of boardArray){
+                      if(x.position.x === 4 && x.position.y === 7){
+                        x.whatPlaced = rook
+                      }
+                    }
+                  }
+                }
+              }  
+            }
             let figure = elem.whatPlaced
             elem.whatPlaced = undefined
             for(let newPos of boardArray){
@@ -101,7 +153,7 @@ function PlayWithAI(props) {
               color: turn,
           })
       }
-    }, [boardEngine.board.configuration.checkMate])
+    }, [boardEngine.board.configuration.checkMate], appearHints)
 
     useEffect(() => {
       setPopup();
