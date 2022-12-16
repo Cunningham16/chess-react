@@ -14,14 +14,22 @@ function setImageFigure(color){
 }
 
 function Pawn({ position, color }) {
-    const {boardArray, appearHints, setHints, turn, boardEngine} = useContext(BoardContext);
+    const {boardArray, turn, boardEngine, setBoardArray} = useContext(BoardContext);
 
     function promotePawn(){
         if(position.y === 0 || position.y === 7){
             for(let elem of boardArray){
                 if(position === elem.position){
-                    elem.whatPlaced = {color: color, id: 'queen'}
-                    setHints(!appearHints)
+                    let index = boardArray.indexOf(elem)
+                    setBoardArray(
+                        boardArray.map((obj, i) => {
+                            if(index === i){
+                                obj.whatPlaced = {color: color, id: 'queen'}
+                            }
+
+                            return obj
+                        })
+                    )
                 }
             }
         }
@@ -30,7 +38,7 @@ function Pawn({ position, color }) {
     return ( 
         <button className={classes.board_figure}
                onClick={() => {
-                    setHintsToMove(position, boardArray, setHints, appearHints, boardEngine);
+                    setHintsToMove(position, boardArray, boardEngine, setBoardArray);
                }}
                disabled={isTurn(color, turn)}>
             {promotePawn()}

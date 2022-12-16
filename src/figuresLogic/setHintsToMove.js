@@ -1,26 +1,47 @@
 import { convertToEnginePosition } from '../components/convertToEnginePos'
 import { convertToAppPosition } from '../components/convertToAppPosition'
 
-export function setHintsToMove(position, boardArray, setHints, appearHints, boardEngine){
-    for(let elem of boardArray){
-        elem.setDot = undefined;
-    }
+export function setHintsToMove(position, boardArray, boardEngine, setBoardArray){
+    setBoardArray(
+        boardArray.map((obj) => {
+            obj.setDot = undefined
+            return obj
+        })
+    )
 
     const possibleMoves = boardEngine.moves(convertToEnginePosition(position))
 
     for(let elem of boardArray){
         for(let pos of possibleMoves){
-            if(elem.position.x === convertToAppPosition(pos).x && elem.position.y === convertToAppPosition(pos).y){
+            let convertPos = convertToAppPosition(pos)
+            if(elem.position.x === convertPos.x && elem.position.y === convertPos.y){
                 if(elem.whatPlaced !== undefined){
                     const dotObject = {position: elem.position, id: 'dot', figurePosition: position, type: 'circle'};
-                    elem.setDot = dotObject;
+                    let index = boardArray.indexOf(elem)
+                    setBoardArray(
+                        boardArray.map((obj, i) => {
+                            if(index === i){
+                                obj.setDot = dotObject
+                            }
+
+                            return obj
+                        })
+                    )
                 }else{
+                    
                     const dotObject = {position: elem.position, id: 'dot', figurePosition: position, type: 'dot'};
-                    elem.setDot = dotObject;
+                    let index = boardArray.indexOf(elem)
+                    setBoardArray(
+                        boardArray.map((obj, i) => {
+                            if(index === i){
+                                obj.setDot = dotObject
+                            }
+
+                            return obj
+                        })
+                    )
                 }
             }
         }
     }
-
-    setHints(!appearHints)
 }

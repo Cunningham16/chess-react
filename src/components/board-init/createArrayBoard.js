@@ -114,8 +114,6 @@ export function createBoard(){
         position: setPosition(i),
         color: setColor(i-1),
         setDot: undefined,
-        hasAvaliableAttackKing: false,
-        avaliableMoves: undefined,
       }
     }
     return array.reverse();

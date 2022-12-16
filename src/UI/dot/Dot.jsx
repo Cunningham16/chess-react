@@ -3,17 +3,16 @@ import { BoardContext } from '../../context';
 import classes from './dot.module.css';
 import { changeTurn } from '../../figuresLogic/changeTurn';
 import { convertToEnginePosition } from '../../components/convertToEnginePos';
+import { convertToAppPosition } from '../../components/convertToAppPosition';
 
 function Dot({ objectDot, children, isPlayWithAI }) {   
     const {boardArray, 
             setBoardArray,
-            setHints, 
-            appearHints, 
             setTurn, 
             fallenFiguresLight,
             fallenFiguresDark, 
             boardEngine,
-            setIsPlayerMadeMove} = useContext(BoardContext);
+            setIsPlayerMadeMove, setBoardEngine} = useContext(BoardContext);
 
     function setFallenFigure(color, newPos){
         if(color === 'black'){
@@ -23,83 +22,133 @@ function Dot({ objectDot, children, isPlayWithAI }) {
         }
     }
 
-    function moveFigure(objectDot){
-        if(objectDot.type !== 'castling'){
-            for(let elem of boardArray){
-                if(elem.whatPlaced !== undefined && elem.position === objectDot.figurePosition){
-                    let figure = elem.whatPlaced;
-                    elem.whatPlaced = undefined;
-                    for(let newPos of boardArray){
-                        if(newPos.position === objectDot.position){
-                            if(newPos.whatPlaced !== undefined){
-                                setFallenFigure(newPos.whatPlaced.color, newPos)
-                            }
-                            newPos.whatPlaced = figure;
-                            boardEngine.move(convertToEnginePosition(objectDot.figurePosition), 
-                                             convertToEnginePosition(objectDot.position))
-                            if(isPlayWithAI === false || isPlayWithAI === undefined){
-                                changeTurn(newPos.position, setTurn, boardArray, setBoardArray)
-                            }else{
-                                setIsPlayerMadeMove(true)
-                            }
-                        }
-                    }
+    function setChangeBoardDeleting(elem){
+        let index = boardArray.indexOf(elem)
+        setBoardArray(
+            boardArray.map((obj, i) => {
+                if(index === i){
+                    obj.whatPlaced = undefined
                 }
-            }
-        }else if(objectDot.type === 'castling'){
-            let king;
-            let rook; 
-            for(let elem of boardArray){
-                if(elem.whatPlaced !== undefined 
-                    && (elem.position === objectDot.kingPosition || elem.position === objectDot.rookPosition)){
-                    if(elem.whatPlaced.id === 'king'){
-                        king = elem;
-                    }else if(elem.whatPlaced.id === 'rook'){
-                        rook = elem;
-                    }
-                }
-            }
-
-            if(king.position.x < rook.position.x){
-                for(let newPos of boardArray){
-                    if(objectDot.position.x-1 === newPos.position.x && objectDot.position.y === newPos.position.y){
-                        newPos.whatPlaced = rook.whatPlaced;
-                    }
-                }           
-            }else if(king.position.x > rook.position.x){
-                for(let newPos of boardArray){
-                    if(objectDot.position.x+1 === newPos.position.x && objectDot.position.y === newPos.position.y){
-                        newPos.whatPlaced = rook.whatPlaced;
-                    }
-                }
-            }
-
-            for(let newPos of boardArray){
-                if(newPos.position === objectDot.position){
-                    newPos.whatPlaced = king.whatPlaced;
-                    if(isPlayWithAI === false || isPlayWithAI === undefined){
-                        changeTurn(newPos.position, setTurn, boardArray, setBoardArray)
-                    }else{
-                        setIsPlayerMadeMove(true)
-                    }
-                    boardEngine.move(convertToEnginePosition(objectDot.kingPosition), convertToEnginePosition(objectDot.position))
-                }
-            } 
-
-            for(let elem of boardArray){
-                if(elem.whatPlaced !== undefined 
-                    && (elem.position === objectDot.kingPosition || elem.position === objectDot.rookPosition)){
-                        elem.whatPlaced = undefined;
-                }
-            }
-        }
-
-        for(let elem of boardArray){
-            elem.setDot = undefined;
-        }
-        
-        setHints(!appearHints)
+                
+                return obj
+            })
+        )
     }
+
+    function setChangeBoardFigureAdd(elem, figure){
+        let index = boardArray.indexOf(elem)
+        setBoardArray(
+            boardArray.map((obj, i) => {
+                if(index === i){
+                    obj.whatPlaced = figure
+                }
+                
+                return obj
+            })
+        )
+    }
+
+    function makeMovePlayer(movePlayer, boardArray){
+        for(let move in movePlayer){
+          let from = convertToAppPosition(move)
+          let to = convertToAppPosition(movePlayer[move])
+          for(let elem of boardArray){
+            if(elem.position.x === from.x && elem.position.y === from.y){
+              if(elem.whatPlaced.id === 'king'){
+                if(to.x === 1 && to.y === 0){
+                  for(let y of boardArray){
+                    if(y.position.x === 0 && y.position.y === 0){
+                      let rook = y.whatPlaced
+                      setChangeBoardDeleting(y)
+                      for(let x of boardArray){
+                        if(x.position.x === 2 && x.position.y === 0){
+                            setChangeBoardFigureAdd(x, rook)
+                        }
+                      }
+                    }
+                  }
+                }else if(to.x === 5 && to.y === 0){
+                  for(let y of boardArray){
+                    if(y.position.x === 7 && y.position.y === 0){
+                      let rook = y.whatPlaced
+                      setChangeBoardDeleting(y)
+                      for(let x of boardArray){
+                        if(x.position.x === 4 && x.position.y === 0){
+                            setChangeBoardFigureAdd(x, rook)
+                        }
+                      }
+                    }
+                  }
+                }else if(to.x === 6 && to.y === 7){
+                  for(let y of boardArray){
+                    if(y.position.x === 7 && y.position.y === 7){
+                      let rook = y.whatPlaced
+                      setChangeBoardDeleting(y)
+                      for(let x of boardArray){
+                        if(x.position.x === 5 && x.position.y === 7){
+                            setChangeBoardFigureAdd(x, rook)
+                        }
+                      }
+                    }
+                  }
+                }else if(to.x === 5 && to.y === 7){
+                  for(let y of boardArray){
+                    if(y.position.x === 0 && y.position.y === 7){
+                      let rook = y.whatPlaced
+                      setChangeBoardDeleting(y)
+                      for(let x of boardArray){
+                        if(x.position.x === 4 && x.position.y === 7){
+                            setChangeBoardFigureAdd(x, rook)
+                        }
+                      }
+                    }
+                  }
+                }  
+              }
+              let figure = elem.whatPlaced
+              setChangeBoardDeleting(elem)
+              elem.whatPlaced = undefined
+              for(let newPos of boardArray){
+                if(newPos.position.x === to.x && newPos.position.y === to.y){
+                  if(newPos.whatPlaced !== undefined){
+                    setFallenFigure(newPos.whatPlaced.color, newPos)
+                  }
+                  setChangeBoardFigureAdd(newPos, figure)
+                }
+              }
+            }
+          }
+        }
+      }
+
+    function moveFigure(objectDot){
+        if(isPlayWithAI === false || isPlayWithAI === undefined){
+            setBoardArray(
+                boardArray.reverse().map((obj) => {
+                    obj.setDot = undefined
+                    return obj
+                })
+            )
+        }else{
+            setBoardArray(
+                boardArray.map((obj) => {
+                    obj.setDot = undefined
+                    return obj
+                })
+            )
+        }
+        for(let newPos of boardArray){
+            if(newPos.position === objectDot.position){
+                makeMovePlayer(boardEngine.move(convertToEnginePosition(objectDot.figurePosition), convertToEnginePosition(objectDot.position)), boardArray)
+                setBoardEngine(() => boardEngine)
+                if(isPlayWithAI === false || isPlayWithAI === undefined){
+                    changeTurn(newPos.position, setTurn, boardArray, setBoardArray)
+                }else{
+                    setIsPlayerMadeMove(true)
+                }
+            }
+        }
+    }        
 
     function setTypeHint(type){
         switch (type) {

@@ -11,7 +11,6 @@ function PlayWithAI(props) {
     const [boardEngine, setBoardEngine] = useState(new Game())
     const [turn, setTurn] = useState('white')
     const [boardArray, setBoardArray] = useState(createBoard())
-    const [appearHints, setHints] = useState()
     const [fallenFiguresLight, setFallenFiguresLight] = useState([])
     const [fallenFiguresDark, setFallenFiguresDark] = useState([])
     const [isEndCase, setIsEndCase] = useState({
@@ -30,8 +29,6 @@ function PlayWithAI(props) {
       setFallenFiguresDark,
       boardArray,
       setBoardArray,
-      appearHints, 
-      setHints,
       turn, 
       setTurn, 
       isEndCase, 
@@ -56,9 +53,10 @@ function PlayWithAI(props) {
 
     useEffect(() => {
       if(isPlayerMadeMove === true){
-        console.log('count')
+        //check isCheckPlayer??
         setTimeout(() => {
           makeMoveAI(boardEngine.aiMove(0))
+          //check isCheckAi??
         }, 700)
       }
     }, [isPlayerMadeMove])
@@ -82,10 +80,10 @@ function PlayWithAI(props) {
                 for(let y of boardArray){
                   if(y.position.x === 0 && y.position.y === 0){
                     let rook = y.whatPlaced
-                    y.whatPlaced = undefined
+                    setChangeBoardDeleting(y)
                     for(let x of boardArray){
                       if(x.position.x === 2 && x.position.y === 0){
-                        x.whatPlaced = rook
+                          setChangeBoardFigureAdd(x, rook)
                       }
                     }
                   }
@@ -94,10 +92,10 @@ function PlayWithAI(props) {
                 for(let y of boardArray){
                   if(y.position.x === 7 && y.position.y === 0){
                     let rook = y.whatPlaced
-                    y.whatPlaced = undefined
+                    setChangeBoardDeleting(y)
                     for(let x of boardArray){
                       if(x.position.x === 4 && x.position.y === 0){
-                        x.whatPlaced = rook
+                          setChangeBoardFigureAdd(x, rook)
                       }
                     }
                   }
@@ -106,10 +104,10 @@ function PlayWithAI(props) {
                 for(let y of boardArray){
                   if(y.position.x === 7 && y.position.y === 7){
                     let rook = y.whatPlaced
-                    y.whatPlaced = undefined
+                    setChangeBoardDeleting(y)
                     for(let x of boardArray){
                       if(x.position.x === 5 && x.position.y === 7){
-                        x.whatPlaced = rook
+                          setChangeBoardFigureAdd(x, rook)
                       }
                     }
                   }
@@ -118,10 +116,10 @@ function PlayWithAI(props) {
                 for(let y of boardArray){
                   if(y.position.x === 0 && y.position.y === 7){
                     let rook = y.whatPlaced
-                    y.whatPlaced = undefined
+                    setChangeBoardDeleting(y)
                     for(let x of boardArray){
                       if(x.position.x === 4 && x.position.y === 7){
-                        x.whatPlaced = rook
+                          setChangeBoardFigureAdd(x, rook)
                       }
                     }
                   }
@@ -129,21 +127,47 @@ function PlayWithAI(props) {
               }  
             }
             let figure = elem.whatPlaced
+            setChangeBoardDeleting(elem)
             elem.whatPlaced = undefined
             for(let newPos of boardArray){
               if(newPos.position.x === to.x && newPos.position.y === to.y){
                 if(newPos.whatPlaced !== undefined){
                   setFallenFigure(newPos.whatPlaced.color, newPos)
                 }
-                newPos.whatPlaced = figure
+                setChangeBoardFigureAdd(newPos, figure)
                 setIsPlayerMadeMove(false);
-                setHints(!appearHints)
               }
             }
           }
         }
       }
     }
+
+    function setChangeBoardDeleting(elem){
+      let index = boardArray.indexOf(elem)
+      setBoardArray(
+          boardArray.map((obj, i) => {
+              if(index === i){
+                  obj.whatPlaced = undefined
+              }
+              
+              return obj
+          })
+      )
+  }
+
+  function setChangeBoardFigureAdd(elem, figure){
+      let index = boardArray.indexOf(elem)
+      setBoardArray(
+          boardArray.map((obj, i) => {
+              if(index === i){
+                  obj.whatPlaced = figure
+              }
+              
+              return obj
+          })
+      )
+  }
 
     useEffect(() => {
       if(boardEngine.board.configuration.checkMate === true){
@@ -153,16 +177,16 @@ function PlayWithAI(props) {
               color: turn,
           })
       }
-    }, [boardEngine.board.configuration.checkMate], appearHints)
+    }, [boardEngine.board.configuration.checkMate])
 
     useEffect(() => {
       setPopup();
-      for(let elem of boardArray){
-        if(elem.setDot !== undefined){
-            elem.setDot = undefined
-        }
-      }
-      setHints(!appearHints) 
+      setBoardArray(
+        boardArray.map((obj) => {
+            obj.setDot = undefined
+            return obj
+        })
+      )
     }, [isEndCase])
 
     useEffect(() => {
@@ -174,7 +198,6 @@ function PlayWithAI(props) {
       setBoardArray(createBoard())
       setFallenFiguresDark([])
       setFallenFiguresLight([])
-      setHints()
       setIsRetry(false)
 
       if(turn === 'black'){

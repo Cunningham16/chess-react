@@ -18,7 +18,7 @@ function colorSection(color){
 }
 
 function BoardSection({ objectBoard, isPlayWithAI }) { 
-    const {appearHints} = useContext(BoardContext);
+    const {boardArray} = useContext(BoardContext);
 
     function declare(object){
         if(object.whatPlaced !== undefined){
@@ -71,7 +71,7 @@ function BoardSection({ objectBoard, isPlayWithAI }) {
     useEffect(() => {
         declareHints(objectBoard);
         declare(objectBoard);
-    }, [appearHints])
+    }, [boardArray])
 
     return ( 
         <div className = {colorSection(objectBoard.color)}>

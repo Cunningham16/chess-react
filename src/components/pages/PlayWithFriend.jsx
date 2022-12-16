@@ -10,7 +10,6 @@ function PlayWithFriend() {
     const [boardEngine, setBoardEngine] = useState(new Game())
     const [turn, setTurn] = useState('white')
     const [boardArray, setBoardArray] = useState(createBoard())
-    const [appearHints, setHints] = useState()
     const [fallenFiguresLight, setFallenFiguresLight] = useState([])
     const [fallenFiguresDark, setFallenFiguresDark] = useState([])
     const [isEndCase, setIsEndCase] = useState({
@@ -27,8 +26,6 @@ function PlayWithFriend() {
       setFallenFiguresDark,
       boardArray,
       setBoardArray,
-      appearHints, 
-      setHints,
       turn, 
       setTurn, 
       isEndCase, 
@@ -57,17 +54,16 @@ function PlayWithFriend() {
               color: turn,
           })
       }
-      console.log('ok')
     }, [boardEngine.board.configuration.checkMate])
 
     useEffect(() => {
       setPopup();
-      for(let elem of boardArray){
-        if(elem.setDot !== undefined){
-            elem.setDot = undefined
-        }
-      }
-      setHints(!appearHints) 
+      setBoardArray(
+        boardArray.map((obj) => {
+            obj.setDot = undefined
+            return obj
+        })
+      )
     }, [isEndCase])
 
     useEffect(() => {
@@ -79,7 +75,6 @@ function PlayWithFriend() {
       setBoardArray(createBoard())
       setFallenFiguresDark([])
       setFallenFiguresLight([])
-      setHints()
       setIsRetry(false)
 
       if(turn === 'black'){
