@@ -1,5 +1,5 @@
-import { convertToEnginePosition } from '../components/convertToEnginePos'
-import { convertToAppPosition } from '../components/convertToAppPosition'
+import { convertToEnginePosition } from '../components/board-init/convertToEnginePos'
+import { convertToAppPosition } from '../components/board-init/convertToAppPosition'
 
 export function setHintsToMove(position, boardArray, boardEngine, setBoardArray){
     setBoardArray(
@@ -28,7 +28,6 @@ export function setHintsToMove(position, boardArray, boardEngine, setBoardArray)
                         })
                     )
                 }else{
-                    
                     const dotObject = {position: elem.position, id: 'dot', figurePosition: position, type: 'dot'};
                     let index = boardArray.indexOf(elem)
                     setBoardArray(

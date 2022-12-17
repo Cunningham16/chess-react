@@ -2,17 +2,11 @@ import React, { useContext } from 'react';
 import { BoardContext } from '../../context';
 import classes from './dot.module.css';
 import { changeTurn } from '../../figuresLogic/changeTurn';
-import { convertToEnginePosition } from '../../components/convertToEnginePos';
-import { convertToAppPosition } from '../../components/convertToAppPosition';
+import { convertToEnginePosition } from '../../components/board-init/convertToEnginePos';
+import { convertToAppPosition } from '../../components/board-init/convertToAppPosition';
 
 function Dot({ objectDot, children, isPlayWithAI }) {   
-    const {boardArray, 
-            setBoardArray,
-            setTurn, 
-            fallenFiguresLight,
-            fallenFiguresDark, 
-            boardEngine,
-            setIsPlayerMadeMove, setBoardEngine} = useContext(BoardContext);
+    const {boardArray, setBoardArray, setTurn, fallenFiguresLight, fallenFiguresDark, boardEngine, setIsPlayerMadeMove, setBoardEngine} = useContext(BoardContext);
 
     function setFallenFigure(color, newPos){
         if(color === 'black'){
@@ -55,25 +49,25 @@ function Dot({ objectDot, children, isPlayWithAI }) {
           for(let elem of boardArray){
             if(elem.position.x === from.x && elem.position.y === from.y){
               if(elem.whatPlaced.id === 'king'){
-                if(to.x === 1 && to.y === 0){
+                if(to.x === 2 && to.y === 0){
                   for(let y of boardArray){
                     if(y.position.x === 0 && y.position.y === 0){
                       let rook = y.whatPlaced
                       setChangeBoardDeleting(y)
                       for(let x of boardArray){
-                        if(x.position.x === 2 && x.position.y === 0){
+                        if(x.position.x === 3 && x.position.y === 0){
                             setChangeBoardFigureAdd(x, rook)
                         }
                       }
                     }
                   }
-                }else if(to.x === 5 && to.y === 0){
+                }else if(to.x === 6 && to.y === 0){
                   for(let y of boardArray){
                     if(y.position.x === 7 && y.position.y === 0){
                       let rook = y.whatPlaced
                       setChangeBoardDeleting(y)
                       for(let x of boardArray){
-                        if(x.position.x === 4 && x.position.y === 0){
+                        if(x.position.x === 5 && x.position.y === 0){
                             setChangeBoardFigureAdd(x, rook)
                         }
                       }
@@ -91,13 +85,13 @@ function Dot({ objectDot, children, isPlayWithAI }) {
                       }
                     }
                   }
-                }else if(to.x === 5 && to.y === 7){
+                }else if(to.x === 2 && to.y === 7){
                   for(let y of boardArray){
                     if(y.position.x === 0 && y.position.y === 7){
                       let rook = y.whatPlaced
                       setChangeBoardDeleting(y)
                       for(let x of boardArray){
-                        if(x.position.x === 4 && x.position.y === 7){
+                        if(x.position.x === 3 && x.position.y === 7){
                             setChangeBoardFigureAdd(x, rook)
                         }
                       }
