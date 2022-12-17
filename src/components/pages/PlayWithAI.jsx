@@ -54,70 +54,75 @@ function PlayWithAI() {
     useEffect(() => {
       if(isPlayerMadeMove === true){
         setTimeout(() => {
-          makeMoveAI(boardEngine.aiMove(0))
+          makeMoveAI(boardEngine.aiMove(0), boardEngine.board.configuration.castling)
         }, 700)
       }
     }, [isPlayerMadeMove])
 
     function setFallenFigure(color, newPos){
       if(color === 'black'){
-          fallenFiguresDark.push(newPos.whatPlaced);
+        fallenFiguresDark.push(newPos.whatPlaced);
       }else if( color === 'white'){
-          fallenFiguresLight.push(newPos.whatPlaced);
+        fallenFiguresLight.push(newPos.whatPlaced);
       }
     }
     
-    function makeMoveAI(moveAI){
+    function makeMoveAI(moveAI, isCastling){
+      const {whiteShort, whiteLong, blackShort, blackLong} = isCastling
       for(let move in moveAI){
         let from = convertToAppPosition(move)
         let to = convertToAppPosition(moveAI[move])
         for(let elem of boardArray){
           if(elem.position.x === from.x && elem.position.y === from.y){
             if(elem.whatPlaced.id === 'king'){
-              if(to.x === 2 && to.y === 0){
-                for(let y of boardArray){
-                  if(y.position.x === 0 && y.position.y === 0){
-                    let rook = y.whatPlaced
-                    setChangeBoardDeleting(y)
-                    for(let x of boardArray){
-                      if(x.position.x === 3 && x.position.y === 0){
-                          setChangeBoardFigureAdd(x, rook)
+              if(from.x === 4 && from.y === 0){
+                if(to.x === 2 && to.y === 0){
+                  for(let y of boardArray){
+                    if(y.position.x === 0 && y.position.y === 0){
+                      let rook = y.whatPlaced
+                      setChangeBoardDeleting(y)
+                      for(let x of boardArray){
+                        if(x.position.x === 3 && x.position.y === 0){
+                            setChangeBoardFigureAdd(x, rook)
+                        }
+                      }
+                    }
+                  }
+                }else if(to.x === 6 && to.y === 0){
+                  for(let y of boardArray){
+                    if(y.position.x === 7 && y.position.y === 0){
+                      let rook = y.whatPlaced
+                      setChangeBoardDeleting(y)
+                      for(let x of boardArray){
+                        if(x.position.x === 5 && x.position.y === 0){
+                            setChangeBoardFigureAdd(x, rook)
+                        }
                       }
                     }
                   }
                 }
-              }else if(to.x === 6 && to.y === 0){
-                for(let y of boardArray){
-                  if(y.position.x === 7 && y.position.y === 0){
-                    let rook = y.whatPlaced
-                    setChangeBoardDeleting(y)
-                    for(let x of boardArray){
-                      if(x.position.x === 5 && x.position.y === 0){
-                          setChangeBoardFigureAdd(x, rook)
+              }else if(from.x === 4 && from.y === 7){
+                if(to.x === 6 && to.y === 7){
+                  for(let y of boardArray){
+                    if(y.position.x === 7 && y.position.y === 7){
+                      let rook = y.whatPlaced
+                      setChangeBoardDeleting(y)
+                      for(let x of boardArray){
+                        if(x.position.x === 5 && x.position.y === 7){
+                            setChangeBoardFigureAdd(x, rook)
+                        }
                       }
                     }
                   }
-                }
-              }else if(to.x === 6 && to.y === 7){
-                for(let y of boardArray){
-                  if(y.position.x === 7 && y.position.y === 7){
-                    let rook = y.whatPlaced
-                    setChangeBoardDeleting(y)
-                    for(let x of boardArray){
-                      if(x.position.x === 5 && x.position.y === 7){
-                          setChangeBoardFigureAdd(x, rook)
-                      }
-                    }
-                  }
-                }
-              }else if(to.x === 2 && to.y === 7){
-                for(let y of boardArray){
-                  if(y.position.x === 0 && y.position.y === 7){
-                    let rook = y.whatPlaced
-                    setChangeBoardDeleting(y)
-                    for(let x of boardArray){
-                      if(x.position.x === 3 && x.position.y === 7){
-                          setChangeBoardFigureAdd(x, rook)
+                }else if(to.x === 2 && to.y === 7){
+                  for(let y of boardArray){
+                    if(y.position.x === 0 && y.position.y === 7){
+                      let rook = y.whatPlaced
+                      setChangeBoardDeleting(y)
+                      for(let x of boardArray){
+                        if(x.position.x === 3 && x.position.y === 7){
+                            setChangeBoardFigureAdd(x, rook)
+                        }
                       }
                     }
                   }
@@ -168,14 +173,15 @@ function PlayWithAI() {
   }
 
     useEffect(() => {
+      setBoardEngine(boardEngine)
       if(boardEngine.board.configuration.checkMate === true){
-          setIsEndCase({
-              status: true,
-              type: 'checkmate',
-              color: turn,
-          })
+        setIsEndCase({
+            status: true,
+            type: 'checkmate',
+            color: turn,
+        })
       }
-    }, [boardEngine.board.configuration.checkMate])
+    }, [boardEngine])
 
     useEffect(() => {
       setPopup();
