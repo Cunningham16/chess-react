@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { BoardContext } from "../../context";
 import classes from './figures.module.css';
 import { setHintsToMove } from '../../figuresLogic/setHintsToMove';
@@ -35,13 +35,17 @@ function Pawn({ position, color }) {
         }
     }
 
+    useEffect(() => {
+        promotePawn()
+    }, [boardArray])
+    
+
     return ( 
         <button className={classes.board_figure}
                onClick={() => {
                     setHintsToMove(position, boardArray, boardEngine, setBoardArray);
                }}
                disabled={isTurn(color, turn)}>
-            {promotePawn()}
             <img src={setImageFigure(color)} alt="img" />
         </button>
     );

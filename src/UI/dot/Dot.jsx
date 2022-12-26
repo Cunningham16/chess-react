@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BoardContext } from '../../context';
 import classes from './dot.module.css';
 import { changeTurn } from '../../figuresLogic/changeTurn';
@@ -6,7 +6,7 @@ import { convertToEnginePosition } from '../../components/board-init/convertToEn
 import { convertToAppPosition } from '../../components/board-init/convertToAppPosition';
 
 function Dot({ objectDot, children, isPlayWithAI }) {   
-    const {boardArray, setBoardArray, setTurn, fallenFiguresLight, fallenFiguresDark, boardEngine, setIsPlayerMadeMove, turn} = useContext(BoardContext);
+    const {boardArray, setBoardArray, setTurn, fallenFiguresLight, fallenFiguresDark, boardEngine, setIsPlayerMadeMove, setBoardEngine} = useContext(BoardContext);
 
     function setFallenFigure(color, newPos){
         if(color === 'black'){
@@ -42,8 +42,7 @@ function Dot({ objectDot, children, isPlayWithAI }) {
         )
     }
 
-    function makeMovePlayer(movePlayer, boardArray, isCastling){
-      const {whiteShort, whiteLong, blackShort, blackLong} = isCastling
+    function makeMovePlayer(movePlayer, boardArray){
         for(let move in movePlayer){
           let from = convertToAppPosition(move)
           let to = convertToAppPosition(movePlayer[move])
@@ -118,7 +117,7 @@ function Dot({ objectDot, children, isPlayWithAI }) {
             }
           }
         }
-      }
+    }
 
     function moveFigure(objectDot){
         if(isPlayWithAI === false || isPlayWithAI === undefined){
@@ -138,8 +137,8 @@ function Dot({ objectDot, children, isPlayWithAI }) {
         }
         for(let newPos of boardArray){
             if(newPos.position === objectDot.position){
-              const isCastling = boardEngine.board.configuration.castling
-                makeMovePlayer(boardEngine.move(convertToEnginePosition(objectDot.figurePosition), convertToEnginePosition(objectDot.position)), boardArray, isCastling)
+                makeMovePlayer(boardEngine.move(convertToEnginePosition(objectDot.figurePosition), convertToEnginePosition(objectDot.position)), boardArray)
+                setBoardEngine(boardEngine)
                 if(isPlayWithAI === false || isPlayWithAI === undefined){
                     changeTurn(newPos.position, setTurn, boardArray, setBoardArray)
                 }else{
