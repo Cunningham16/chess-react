@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { BoardContext } from '../../context';
 import classes from './dot.module.css';
 import { changeTurn } from '../../figuresLogic/changeTurn';
-import { convertToEnginePosition } from '../../components/board-init/convertToEnginePos';
-import { convertToAppPosition } from '../../components/board-init/convertToAppPosition';
+import { convertToEnginePosition } from 'shared/convertToEnginePos';
+import { convertToAppPosition } from 'shared/convertToAppPosition';
 
 function Dot({ objectDot, children, isPlayWithAI }) {   
     const {boardArray, setBoardArray, setTurn, fallenFiguresLight, fallenFiguresDark, boardEngine, setIsPlayerMadeMove, setBoardEngine} = useContext(BoardContext);

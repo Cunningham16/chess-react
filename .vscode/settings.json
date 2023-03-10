@@ -1,0 +1,52 @@
+{
+    "path-autocomplete.includeExtension": true,
+    "path-autocomplete.extensionOnImport": true,
+  
+    "path-autocomplete.excludedItems": {
+      "**/*.+(ts|js|jsx|tsx)": { "when": "**" },
+      "**/*.map": { "when": "**" },
+      "**/{.git,node_modules}": { "when": "**" },
+      "**/*": { "when": "**/*.+(less|css|scss|sass)" }
+    },
+  
+    "stylelint.enable": true,
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+  
+    "editor.codeActionsOnSave": {
+      "source.fixAll.tslint": true,
+      "source.fixAll.eslint": true,
+      "source.fixAll.markdownlint": true,
+      "source.fixAll.stylelint": true
+    },
+    "eslint.validate": [
+      "typescript",
+      "typescriptreact"
+    ],
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": true,
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.wordSeparators": "`!%&()[{]}|;'\",?#" 
+    },
+    "[css]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.wordSeparators": "`~!%^&*()=+[{]}\\|;:'\",.<>/?$"
+    },
+    "[scss]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.wordSeparators": "`~!%^&*()=+[{]}\\|;:'\",.<>/?" 
+    }
+  }

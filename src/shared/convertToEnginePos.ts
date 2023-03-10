@@ -1,6 +1,10 @@
 //position: Object {x: number, y: number}
+type posObject = {
+    x: number,
+    y: number,
+}
 
-export function convertToEnginePosition(position){
+export function convertToEnginePosition(position: posObject){
     const { x, y } = position
     
     if(x === 0){

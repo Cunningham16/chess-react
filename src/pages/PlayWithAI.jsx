@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Game } from 'js-chess-engine'
-import Board from "../Board";
-import PlayerInfo from "../PlayerInfo";
-import { BoardContext } from '../../context';
-import GameOverPopUp from '../GameOverPopUp';
-import { createBoard } from '../board-init/createArrayBoard';
-import { convertToAppPosition } from "../board-init/convertToAppPosition";
+import Board from "components/Board";
+import PlayerInfo from "components/PlayerInfo";
+import { BoardContext } from 'context';
+import GameOverPopUp from 'components/GameOverPopUp';
+import { createBoard } from 'components/board-init/createArrayBoard';
+import { convertToAppPosition } from "shared/convertToAppPosition";
 
 function PlayWithAI() {
   const [boardEngine, setBoardEngine] = useState(new Game())

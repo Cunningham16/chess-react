@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Game } from 'js-chess-engine'
-import Board from "../Board";
-import PlayerInfo from "../PlayerInfo";
-import { BoardContext } from '../../context';
-import GameOverPopUp from '../GameOverPopUp';
-import { createBoard } from '../board-init/createArrayBoard';
+import Board from "components/Board";
+import PlayerInfo from "components/PlayerInfo";
+import { BoardContext } from 'context';
+import GameOverPopUp from 'components/GameOverPopUp';
+import { createBoard } from 'components/board-init/createArrayBoard';
 
 function PlayWithFriend() {
     const [boardEngine, setBoardEngine] = useState(new Game())

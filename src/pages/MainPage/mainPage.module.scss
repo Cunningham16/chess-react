@@ -1,26 +1,23 @@
-.main-page{
+.mainPage{
     padding-top: 30px;
     max-width: 1100px;
     width: 100%;
     box-sizing: border-box;
 }
 
-.main-page a{
-    text-decoration: none;
-}
-
-.first-screen__img{
+.firstScreen__img{
     border-radius: 20px;
 }
 
-.main-page__first-screen{
+.mainPage__firstScreen{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 30px;
     width: 100%;
 }
 
-.first-screen__content{
+.firstScreen__content{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,18 +25,18 @@
     justify-content: space-around;
 }
 
-.first-screen__content h1{
+.firstScreen__content h1{
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 45px;
     text-align: center;
 }
 
-.first-screen__content span{
+.firstScreen__content span{
     color: #61dafb;
 }
 
-.first-screen__button{
+.firstScreen__button{
     display: flex;
     align-items: center;
     width: 400px;
@@ -51,43 +48,46 @@
     transition: 0.2s;
 }
 
-.first-screen__button div{
+.firstScreen__button div{
     text-align: left;
 }
 
-.first-screen__button div h4{
+a{
+    text-decoration: none;
+}
+
+.firstScreen__button div h4{
     font-size: 24px;
     font-family: Arial, Helvetica, sans-serif;
     margin: 10px;
     color: white;
-    text-decoration: none;
 }
 
-.first-screen__button div p{
+.firstScreen__button div p{
     font-size: 13px;
     font-family: Arial, Helvetica, sans-serif;
     margin: 10px;
     color: rgba(255, 255, 255, 0.664);
 }
 
-.first-screen__button_secondary{
+.firstScreen__button_secondary{
     background-color: #666463;
 }
 
-.first-screen__button_secondary:hover{
+.firstScreen__button_secondary:hover{
     background-color: #7e7c7b;   
 }
 
-.first-screen__button_primary{
+.firstScreen__button_primary{
     background-color: #ca8745; 
     margin-bottom: 20px;
 }
 
-.first-screen__button_primary:hover{
+.firstScreen__button_primary:hover{
     background-color: #f7c899;
 }
 
-.first-screen__button img{
+.firstScreen__button img{
     width: 60px;
     height: 60px;
 }
