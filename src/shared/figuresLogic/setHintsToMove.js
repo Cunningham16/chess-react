@@ -1,5 +1,5 @@
-import { convertToEnginePosition } from 'shared/convertToEnginePos'
-import { convertToAppPosition } from 'shared/convertToAppPosition'
+import { convertToEnginePosition } from 'shared/utils/convertToEnginePos'
+import { convertToAppPosition } from 'shared/utils/convertToAppPosition'
 
 export function setHintsToMove(position, boardArray, boardEngine, setBoardArray){
     setBoardArray(

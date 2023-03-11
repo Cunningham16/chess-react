@@ -1,7 +1,8 @@
 import React from 'react';
 import { useContext } from 'react';
-import { BoardContext } from '../context';
+import { BoardContext } from '../shared/context';
 import Timer from '../UI/timer/Timer';
+import 'styles/board.css'
 
 function PlayerInfo({ color, isPlayWithAI }) {
     const {fallenFiguresLight, fallenFiguresDark} = useContext(BoardContext);

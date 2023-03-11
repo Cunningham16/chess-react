@@ -1,9 +1,9 @@
 import React from 'react';
 import { useContext, useEffect } from 'react';
-import { BoardContext } from "../../context";
+import { BoardContext } from "shared/context";
 import classes from './figures.module.css';
-import { setHintsToMove } from '../../figuresLogic/setHintsToMove';
-import { isTurn } from '../../figuresLogic/setTurn';
+import { setHintsToMove } from 'shared/figuresLogic/setHintsToMove';
+import { isTurn } from 'shared/figuresLogic/setTurn';
 
 function setImageFigure(color){
     if(color === 'black'){

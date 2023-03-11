@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { BoardContext } from '../../context';
+import { BoardContext } from '../../shared/context';
 import classes from './Timer.module.css';
 
 function convertTime(time){

@@ -53,14 +53,6 @@ div .fallen-figures img{
     display: flex;
 }
 
-.board{
-    width: 480px;
-    height: 480px;
-
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .game-session{
     display: flex;
     align-items: center;
