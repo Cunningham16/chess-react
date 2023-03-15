@@ -3,15 +3,37 @@
   height: 100vh;
 }
 
-body{
-    background-color: rgba(0,0,0,.7);
+body {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-.App{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    width: calc(100% - 180px);
-    margin-left: 180px;
+.App {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - 180px);
+  margin-left: 180px;
+}
+.board-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-session {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  height: 100vh;
+}
+
+.change-log {
+  min-width: 550px;
+  height: 95%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 30px;
+  box-sizing: border-box;
 }

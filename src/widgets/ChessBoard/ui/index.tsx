@@ -1,7 +1,7 @@
 import { BoardContext } from "shared/context";
 import { useContext } from "react";
 import styles from "./styles.module.scss";
-import BoardSection from "UI/boardSection/BoardSection";
+import { BoardSection } from "widgets/BoardSection";
 
 export const Board = ({ isPlayWithAI }) => {
   const { boardArray } = useContext(BoardContext);

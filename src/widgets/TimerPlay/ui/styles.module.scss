@@ -1,0 +1,30 @@
+.dark,
+.light {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  cursor: default;
+
+  width: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5em;
+  color: rgb(158, 158, 158);
+  font-weight: 700;
+}
+
+.dark_active {
+  color: white !important;
+}
+
+.light_active {
+  color: black !important;
+}
+
+.dark {
+  background-color: #26211b;
+}
+
+.light {
+  background-color: #fff;
+}
