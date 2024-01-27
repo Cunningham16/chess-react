@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { boardSession } from "widgets/ChessBoard/model/ChessBoardSlice";
 
 const reducer = {
-
+    boardSession
 }
 
 export const store = configureStore({

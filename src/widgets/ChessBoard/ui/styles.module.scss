@@ -1,7 +1,19 @@
-.board{
-    width: 480px;
-    height: 480px;
+.board {
+  position: absolute;
 
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.figures {
+  position: absolute;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.boardContainer {
+  position: relative;
+  width: 480px;
+  height: 480px;
 }

@@ -1,49 +1,41 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { BoardContext } from "shared/context";
 import { HintToMove } from "widgets/HintToMove";
-import classes from "./styles.module.scss";
+import styles from "./styles.module.scss";
 import { ChessFigure } from "widgets/ChessFigure";
+import { boardTile } from "shared/types/boardTile";
+import { CHESSCOLORS } from "shared/types/chessColors";
+import { useAppSelector } from "shared/hooks/reduxHooks";
+import { Droppable } from "react-beautiful-dnd";
 
-function colorSection(color: "white" | "black") {
-  if (color === "black") {
-    return classes.dark;
-  } else if (color === "white") {
-    return classes.light;
+function colorSection(color: CHESSCOLORS) {
+  if (color === CHESSCOLORS.BLACK) {
+    return styles.black;
+  } else if (color === CHESSCOLORS.WHITE) {
+    return styles.white;
   }
 }
 
-export function BoardSection({ objectBoard, isPlayWithAI }) {
-  const { boardArray } = useContext(BoardContext);
-
-  function declare(object) {
-    if (object.whatPlaced !== undefined) {
-      return (
-        <ChessFigure
-          position={object.position}
-          id={object.whatPlaced.id}
-          color={object.whatPlaced.color}
-        />
-      );
-    }
-  }
-
-  function declareHints(object) {
-    if (object.setDot !== undefined) {
-      return (
-        <HintToMove objectDot={object.setDot} isPlayWithAI={isPlayWithAI} />
-      );
-    }
-  }
-
-  useEffect(() => {
-    declareHints(objectBoard);
-    declare(objectBoard);
-  }, [boardArray]);
-
-  return (
-    <div className={colorSection(objectBoard.color)}>
-      {declareHints(objectBoard)}
-      {declare(objectBoard)}
-    </div>
-  );
+export function BoardSection({
+  objectBoard,
+  index,
+}: {
+  objectBoard: boardTile;
+  index: number;
+}): JSX.Element {
+  const { hintFromSquare } = useAppSelector((state) => state.boardSession);
+  //{
+  //  objectBoard.whatPlaced && (
+  //    <ChessFigure
+  //      index={index}
+  //      position={objectBoard.position}
+  //      type={objectBoard.whatPlaced.type}
+  //      color={objectBoard.whatPlaced.color}
+  //    />
+  //  );
+  //}
+  //{objectBoard.isHintVisible && (
+  //      <HintToMove from={hintFromSquare} to={objectBoard.position} />
+  //    )}
+  return <div className={`${colorSection(objectBoard.tileColor)}`}></div>;
 }

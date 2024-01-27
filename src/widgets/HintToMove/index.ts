@@ -1,1 +1,1 @@
-export { Dot as HintToMove } from "./ui";
+export { HintToMove } from "./ui";

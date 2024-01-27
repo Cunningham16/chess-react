@@ -4,7 +4,7 @@ import { withProviders } from "./providers";
 
 const App = () => {
   return (
-    <div className="App">
+    <div className='App'>
       <Routing />
     </div>
   );

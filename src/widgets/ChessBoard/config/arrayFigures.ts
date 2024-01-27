@@ -1,43 +1,46 @@
-export const arrayFigures = [
-  { position: 49, color: "black", id: "pawn" },
-  { position: 50, color: "black", id: "pawn" },
-  { position: 51, color: "black", id: "pawn" },
-  { position: 52, color: "black", id: "pawn" },
-  { position: 53, color: "black", id: "pawn" },
-  { position: 54, color: "black", id: "pawn" },
-  { position: 55, color: "black", id: "pawn" },
-  { position: 56, color: "black", id: "pawn" },
+import { boardFigure } from "shared/types/boardFigure";
+import { FIGURES } from "shared/types/figures";
 
-  { position: 9, color: "white", id: "pawn" },
-  { position: 10, color: "white", id: "pawn" },
-  { position: 11, color: "white", id: "pawn" },
-  { position: 12, color: "white", id: "pawn" },
-  { position: 13, color: "white", id: "pawn" },
-  { position: 14, color: "white", id: "pawn" },
-  { position: 15, color: "white", id: "pawn" },
-  { position: 16, color: "white", id: "pawn" },
+export const arrayFigures: boardFigure[] = [
+  { position: {x: "a", y: 7}, color: "black", id: FIGURES.PAWN },
+  { position: {x: "b", y: 7}, color: "black", id: FIGURES.PAWN },
+  { position: {x: "c", y: 7}, color: "black", id: FIGURES.PAWN },
+  { position: {x: "d", y: 7}, color: "black", id: FIGURES.PAWN },
+  { position: {x: "e", y: 7}, color: "black", id: FIGURES.PAWN },
+  { position: {x: "f", y: 7}, color: "black", id: FIGURES.PAWN },
+  { position: {x: "g", y: 7}, color: "black", id: FIGURES.PAWN },
+  { position: {x: "h", y: 7}, color: "black", id: FIGURES.PAWN },
 
-  { position: 59, color: "black", id: "bishop" },
-  { position: 62, color: "black", id: "bishop" },
+  { position: {x: "a", y: 2}, color: "white", id: FIGURES.PAWN },
+  { position: {x: "b", y: 2}, color: "white", id: FIGURES.PAWN },
+  { position: {x: "c", y: 2}, color: "white", id: FIGURES.PAWN },
+  { position: {x: "d", y: 2}, color: "white", id: FIGURES.PAWN },
+  { position: {x: "e", y: 2}, color: "white", id: FIGURES.PAWN },
+  { position: {x: "f", y: 2}, color: "white", id: FIGURES.PAWN },
+  { position: {x: "g", y: 2}, color: "white", id: FIGURES.PAWN },
+  { position: {x: "h", y: 2}, color: "white", id: FIGURES.PAWN },
 
-  { position: 3, color: "white", id: "bishop" },
-  { position: 6, color: "white", id: "bishop" },
+  { position: {x: "c", y: 8}, color: "black", id: FIGURES.BISHOP },
+  { position: {x: "f", y: 8}, color: "black", id: FIGURES.BISHOP },
 
-  { position: 58, color: "black", id: "knight" },
-  { position: 63, color: "black", id: "knight" },
+  { position: {x: "c", y: 1}, color: "white", id: FIGURES.BISHOP },
+  { position: {x: "f", y: 1}, color: "white", id: FIGURES.BISHOP },
 
-  { position: 2, color: "white", id: "knight" },
-  { position: 7, color: "white", id: "knight" },
+  { position: {x: "b", y: 8}, color: "black", id: FIGURES.KNIGHT },
+  { position: {x: "g", y: 8}, color: "black", id: FIGURES.KNIGHT },
 
-  { position: 57, color: "black", id: "rook" },
-  { position: 64, color: "black", id: "rook" },
+  { position: {x: "b", y: 1}, color: "white", id: FIGURES.KNIGHT },
+  { position: {x: "g", y: 1}, color: "white", id: FIGURES.KNIGHT },
 
-  { position: 1, color: "white", id: "rook" },
-  { position: 8, color: "white", id: "rook" },
+  { position: {x: "a", y: 8}, color: "black", id: FIGURES.ROOK },
+  { position: {x: "h", y: 8}, color: "black", id: FIGURES.ROOK },
 
-  { position: 60, color: "black", id: "queen" },
-  { position: 4, color: "white", id: "queen" },
+  { position: {x: "a", y: 1}, color: "white", id: FIGURES.ROOK },
+  { position: {x: "h", y: 1}, color: "white", id: FIGURES.ROOK },
 
-  { position: 61, color: "black", id: "king" },
-  { position: 5, color: "white", id: "king" },
+  { position: {x: "d", y: 8}, color: "black", id: FIGURES.QUEEN },
+  { position: {x: "d", y: 1}, color: "white", id: FIGURES.QUEEN },
+
+  { position: {x: "e", y: 8}, color: "black", id: FIGURES.KING },
+  { position: {x: "e", y: 8}, color: "white", id: FIGURES.KING },
 ];

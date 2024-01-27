@@ -5,36 +5,42 @@ import { setColor } from "../lib/setColor";
 import { setImgDark } from "../lib/setImgDark";
 import { setImgLight } from "../lib/setImgLight";
 import styles from "./styles.module.scss";
+import { CHESSCOLORS } from "shared/types/chessColors";
+import { useAppSelector } from "shared/hooks/reduxHooks";
+import { Piece } from "chess.js";
 
-function PlayerInfo({ color, isPlayWithAI }) {
-  const { fallenFiguresLight, fallenFiguresDark } = useContext(BoardContext);
+function PlayerInfo({
+  color,
+  isPlayWithAI,
+}: {
+  color: CHESSCOLORS;
+  isPlayWithAI: boolean;
+}) {
+  const { fallenFigures } = useAppSelector((state) => state.boardSession);
 
-  function setFigures(objectFigure) {
-    if (color !== objectFigure.color && color === "black") {
-      return setImgLight(objectFigure.id);
-    } else if (color !== objectFigure.color && color === "white") {
-      return setImgDark(objectFigure.id);
+  function setFigures(figure: Piece) {
+    if (color !== figure.color && color === CHESSCOLORS.BLACK) {
+      return setImgLight(figure.type);
+    } else if (color !== figure.color && CHESSCOLORS.WHITE) {
+      return setImgDark(figure.type);
     }
   }
-
+  //{!isPlayWithAI && <TimerPlay color={color} />}
   return (
     <div className={styles.playerInfo}>
       <div className={styles.playerInfo__leftSide}>
-        <img src="./img/user-image.svg" alt="userImg" />
+        <img src='./img/user-image.svg' alt='userImg' />
         <div className={styles.info}>
           <p className={styles.name}>{setColor(color)}</p>
           <div className={styles.fallenFigures}>
-            {color === "black"
-              ? fallenFiguresLight.map((elem) => (
-                  <img src={setFigures(elem)} alt="" />
-                ))
-              : fallenFiguresDark.map((elem) => (
-                  <img src={setFigures(elem)} alt="" />
-                ))}
+            {fallenFigures.map((elem) => {
+              if (elem.color === color) {
+                return <img src={setFigures(elem)} alt='' />;
+              }
+            })}
           </div>
         </div>
       </div>
-      {!isPlayWithAI && <TimerPlay color={color} />}
     </div>
   );
 }

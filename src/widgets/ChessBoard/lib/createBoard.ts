@@ -1,78 +1,65 @@
+import { boardPosition } from "shared/types/boardPosition";
 import { arrayFigures } from "../config/arrayFigures";
+import { boardTile } from "shared/types/boardTile";
+import { SQUARES, Square, PieceSymbol, Color } from "chess.js";
+import { CHESSCOLORS } from "shared/types/chessColors";
+import { FIGURES } from "shared/types/figures";
 
-export function createBoard() {
-  let array = [];
+// "w" | "b"
+type colors = (typeof CHESSCOLORS)[keyof typeof CHESSCOLORS];
+type figures = (typeof FIGURES)[keyof typeof FIGURES];
 
-  function setColor(i: number) {
-    if (i < 8 && i % 2 === 0) {
-      return "black";
-    } else if (i < 16 && i > 8 && i % 2 !== 0) {
-      return "black";
-    } else if (i < 24 && i >= 16 && i % 2 === 0) {
-      return "black";
-    } else if (i < 32 && i >= 24 && i % 2 !== 0) {
-      return "black";
-    } else if (i < 40 && i >= 32 && i % 2 === 0) {
-      return "black";
-    } else if (i < 48 && i >= 40 && i % 2 !== 0) {
-      return "black";
-    } else if (i < 56 && i >= 48 && i % 2 === 0) {
-      return "black";
-    } else if (i < 64 && i >= 56 && i % 2 !== 0) {
-      return "black";
-    } else {
-      return "white";
-    }
+function determineSquareColor(num: number) {
+  const i = num-1;
+  if (
+    (i >= 0 && i <= 7) ||
+    (i >= 16 && i <= 23) ||
+    (i >= 32 && i <= 39) ||
+    (i >= 48 && i <= 55)
+  ) {
+    return i % 2 === 0 ? CHESSCOLORS.WHITE : CHESSCOLORS.BLACK;
   }
-
-  function setPosition(i: number) {
-    let object: { x: number; y: number } = { y: 0, x: 0 };
-    if (i - 8 <= 0) {
-      object.x = i - 1;
-      object.y = 0;
-    } else if (i - 16 <= 0 && i - 8 > 0) {
-      object.x = i - 9;
-      object.y = 1;
-    } else if (i - 24 <= 0 && i - 16 > 0) {
-      object.x = i - 17;
-      object.y = 2;
-    } else if (i - 32 <= 0 && i - 24 > 0) {
-      object.x = i - 25;
-      object.y = 3;
-    } else if (i - 40 <= 0 && i - 32 > 0) {
-      object.x = i - 33;
-      object.y = 4;
-    } else if (i - 48 <= 0 && i - 40 > 0) {
-      object.x = i - 41;
-      object.y = 5;
-    } else if (i - 56 <= 0 && i - 48 > 0) {
-      object.x = i - 49;
-      object.y = 6;
-    } else if (i - 56 > 0) {
-      object.x = i - 57;
-      object.y = 7;
-    }
-    return object;
+  if (
+    (i >= 8 && i <= 15) ||
+    (i >= 24 && i <= 31) ||
+    (i >= 40 && i <= 47) ||
+    (i >= 56 && i <= 63)
+  ) {
+    return i % 2 !== 0 ? CHESSCOLORS.WHITE : CHESSCOLORS.BLACK;
   }
-
-  function setFigure(i) {
-    for (let pos of arrayFigures) {
-      if (i === pos.position) {
-        return {
-          color: pos.color,
-          id: pos.id,
-        };
-      }
-    }
-  }
-
-  for (let i = 1; i < 65; i++) {
-    array[i - 1] = {
-      whatPlaced: setFigure(i),
-      position: setPosition(i),
-      color: setColor(i - 1),
-      setDot: undefined,
-    };
-  }
-  return array.reverse();
 }
+
+export const createBoard = (
+  boardGame: {
+    square: Square;
+    type: PieceSymbol;
+    color: Color;
+  }[][]
+) => {
+  let i: number = 1;
+  let array: boardTile[] = [];
+  for (let line of boardGame) {
+    for (let square of line) {
+      if (square === null) {
+        array.push({
+          position: SQUARES[i - 1],
+          tileColor: determineSquareColor(i),
+          whatPlaced: null,
+          isHintVisible: false,
+        });
+      } else {
+        array.push({
+          position: square.square,
+          tileColor: determineSquareColor(i),
+          whatPlaced: {
+            type: square.type as figures,
+            color: square.color as colors,
+          },
+          isHintVisible: false,
+        });
+      }
+      i++;
+    }
+  }
+  return array;
+};

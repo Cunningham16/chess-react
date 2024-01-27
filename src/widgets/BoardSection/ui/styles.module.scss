@@ -1,10 +1,10 @@
-.dark,
-.light {
+.black,
+.white {
   width: 60px;
   height: 60px;
   margin: 0;
   padding: 0;
-
+  content: " ";
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,10 +12,10 @@
   position: relative;
 }
 
-.dark {
+.black {
   background-color: #ca8745;
 }
 
-.light {
+.white {
   background-color: #f7c899;
 }
